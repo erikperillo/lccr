@@ -1,11 +1,8 @@
-package lccr.player;
+package lccr.player.ifaces;
 
-public interface IPlayer
+public interface IPlayer extends IFighter extends IHandler extends IWanderer
 {
-	public String getPosition();
-	public String status();
-	public int attack(IPlayer player, String attack);
-	public int react(IPlayer player, String attack);
-	public void useItem(String item);
-	public void useItem(String item, IPlayer target);
+	public double getCR();
+	public double getKnowledge();
+	public double getMigue();
 }
