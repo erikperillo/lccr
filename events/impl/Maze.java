@@ -2,11 +2,11 @@ package lccr.events.impl;
 
 import lccr.events.ifaces.IEvent;
 
-public class Fight implements IEvent
+public class Maze implements IEvent
 {
 	String ID;
 
-	public class Fight(){;}
+	public class Maze(){;}
 
 	public String getID();
 	public void routine();

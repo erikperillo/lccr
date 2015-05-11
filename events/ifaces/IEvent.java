@@ -1,7 +1,7 @@
-package lccr.events;
+package lccr.events.ifaces;
 
 public interface IEvent
 {
-	public void start();
 	public String getID();
+	public void routine();
 }

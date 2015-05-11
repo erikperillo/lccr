@@ -4,12 +4,19 @@ import lccl.player.IPlayer;
 
 public class Player implements IPlayer
 {
-	public String type;
-	public DataBase attacks;
-	public DataBase inventory;
-	public double CR;
-	public double migue;
+	//attributes
+	double CR = 0.5;
+	double knowledge;
+	double migue;
+	String type;
 
+	public Player(double knowledge, double migue, String type)
+	{
+		this.knowledge = knowledge;
+		this.migue = migue;
+		this.type = type;
+	}
+	
 	public Player(String descr, String type)
 	{
 		this.type = type;
