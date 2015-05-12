@@ -1,4 +1,4 @@
-package lccr.events.impl;
+package lccr.src.events;
 
 import lccr.events.ifaces.IEvent;
 

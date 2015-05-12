@@ -2,15 +2,15 @@ package lccl.player;
 
 import lccl.player.IPlayer;
 
-public class Player implements IPlayer
+public class Player implements IPlayer, IHandler, IWanderer, IFighter
 {
 	//attributes
-	double CR = 0.5;
-	double knowledge;
-	double migue;
+	float CR = 0.5;
+	float knowledge;
+	float migue;
 	String type;
 
-	public Player(double knowledge, double migue, String type)
+	public Player(float knowledge, float migue, String type)
 	{
 		this.knowledge = knowledge;
 		this.migue = migue;
@@ -39,10 +39,10 @@ public class Player implements IPlayer
 		else; //error
 	}
 
-	public int attack(IPlayer enemy, String attack)
+	public float attack(IPlayer enemy, String attack)
 	{
-		double result;	
-		double k;
+		float result;	
+		float k;
 		
 		params = attacks.loadParams(attack);
 		k = params[4];
@@ -55,10 +55,10 @@ public class Player implements IPlayer
 		return result > 0.0;
 	}	
 
-	public int react(IPlayer enemy, String attack)
+	public float react(IPlayer enemy, String attack)
 	{
-		double result;
-		double a,b,c,d,k;
+		float result;
+		float a,b,c,d,k;
 
 		params = attacks.loadParams(attack);
 

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_6asxYPhFEeSsQdcgRTzPlg" name="Model">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_6asxYfhFEeSsQdcgRTzPlg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_KFM7YPhGEeSsQdcgRTzPlg" name="IFighter">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_kAxskPhGEeSsQdcgRTzPlg" name="attack">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhiVkPhGEeSsQdcgRTzPlg" name="enemy" type="_KFM7YPhGEeSsQdcgRTzPlg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_2fAicPhGEeSsQdcgRTzPlg" name="attack">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_7-7u0PhGEeSsQdcgRTzPlg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_FJhPEPhHEeSsQdcgRTzPlg" name="react">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Pyq_EPhHEeSsQdcgRTzPlg" name="enemy" type="_KFM7YPhGEeSsQdcgRTzPlg"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_T5EMsPhHEeSsQdcgRTzPlg" name="attack">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_VGLgEPhHEeSsQdcgRTzPlg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_KhywwPhGEeSsQdcgRTzPlg" name="IHandler">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_ZDvsYPhIEeSsQdcgRTzPlg" name="getItem">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yDqGkPhIEeSsQdcgRTzPlg" name="item">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_ZVuNMPhIEeSsQdcgRTzPlg" name="useItem">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_40_3gPhIEeSsQdcgRTzPlg" name="item">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_L36PIPhGEeSsQdcgRTzPlg" name="IPlayer">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_CpnzQPhJEeSsQdcgRTzPlg" name="getCR">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_NdSKIPhJEeSsQdcgRTzPlg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_DAKrAPhJEeSsQdcgRTzPlg" name="getKnoledge">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_fwtowPhKEeSsQdcgRTzPlg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_DV3OMPhJEeSsQdcgRTzPlg" name="getMigue">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_hRb0oPhKEeSsQdcgRTzPlg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_MML2APhGEeSsQdcgRTzPlg" name="IWanderer">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_itexUPhJEeSsQdcgRTzPlg" name="getLocation">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_l9-RsPhJEeSsQdcgRTzPlg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_i89-0PhJEeSsQdcgRTzPlg" name="move">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_dUHDcPhKEeSsQdcgRTzPlg" name="location">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_lSUQIPhKEeSsQdcgRTzPlg" name="Player">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_7RFNgPhKEeSsQdcgRTzPlg" name="CR">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_7qgaIPhKEeSsQdcgRTzPlg" name="knowledge">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_8B8pwPhKEeSsQdcgRTzPlg" name="migue">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_JUZXQPhLEeSsQdcgRTzPlg" name="type">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_znFg0PhLEeSsQdcgRTzPlg" client="_lSUQIPhKEeSsQdcgRTzPlg" supplier="_L36PIPhGEeSsQdcgRTzPlg" contract="_L36PIPhGEeSsQdcgRTzPlg"/>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_0yBp8PhLEeSsQdcgRTzPlg" client="_lSUQIPhKEeSsQdcgRTzPlg" supplier="_MML2APhGEeSsQdcgRTzPlg" contract="_MML2APhGEeSsQdcgRTzPlg"/>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_1UO_IPhLEeSsQdcgRTzPlg" client="_lSUQIPhKEeSsQdcgRTzPlg" supplier="_KhywwPhGEeSsQdcgRTzPlg" contract="_KhywwPhGEeSsQdcgRTzPlg"/>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_2NpTYPhLEeSsQdcgRTzPlg" client="_lSUQIPhKEeSsQdcgRTzPlg" supplier="_KFM7YPhGEeSsQdcgRTzPlg" contract="_KFM7YPhGEeSsQdcgRTzPlg"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_TOwuoPhLEeSsQdcgRTzPlg" name="Player">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Y0HNkPhLEeSsQdcgRTzPlg" name="knowledge">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_bBx_APhLEeSsQdcgRTzPlg" name="migue">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_cdg9MPhLEeSsQdcgRTzPlg" name="type">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_TmU6EPhLEeSsQdcgRTzPlg" name="Player">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_j5-HsPhLEeSsQdcgRTzPlg" name="descr">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_liQ7MPhLEeSsQdcgRTzPlg" name="type">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_8j8uIPhLEeSsQdcgRTzPlg" name="Players">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_BgGfEPhMEeSsQdcgRTzPlg" name="Player" type="_lSUQIPhKEeSsQdcgRTzPlg"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_FVNIYPhMEeSsQdcgRTzPlg" name="PortIWanderer" type="_MML2APhGEeSsQdcgRTzPlg" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_GI-usPhMEeSsQdcgRTzPlg" name="PortIHandler" type="_KhywwPhGEeSsQdcgRTzPlg" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_Gs5UEPhMEeSsQdcgRTzPlg" name="PortIFighter" type="_KFM7YPhGEeSsQdcgRTzPlg" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_HMHmsPhMEeSsQdcgRTzPlg" name="PortIPlayer" type="_L36PIPhGEeSsQdcgRTzPlg" aggregation="composite"/>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_55alEPhMEeSsQdcgRTzPlg" name="Connector1">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_55bMIPhMEeSsQdcgRTzPlg" role="_FVNIYPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_55bMIfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_55bMIvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_55bzMPhMEeSsQdcgRTzPlg" role="_BgGfEPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_55bzMfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_55bzMvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+    </ownedConnector>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_6d9ckPhMEeSsQdcgRTzPlg" name="Connector2">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_6d-qsPhMEeSsQdcgRTzPlg" role="_GI-usPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6d-qsfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6d-qsvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_6d_RwPhMEeSsQdcgRTzPlg" role="_BgGfEPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6d_RwfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6d_RwvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+    </ownedConnector>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_7GomIPhMEeSsQdcgRTzPlg" name="Connector3">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_7GpNMPhMEeSsQdcgRTzPlg" role="_Gs5UEPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7GpNMfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7GpNMvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_7Gp0QPhMEeSsQdcgRTzPlg" role="_BgGfEPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7Gp0QfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7Gp0QvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+    </ownedConnector>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_71-YYPhMEeSsQdcgRTzPlg" name="Connector4">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_71-_cPhMEeSsQdcgRTzPlg" role="_HMHmsPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_71-_cfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_71-_cvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_71_mgPhMEeSsQdcgRTzPlg" role="_BgGfEPhMEeSsQdcgRTzPlg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_71_mgfhMEeSsQdcgRTzPlg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_71_mgvhMEeSsQdcgRTzPlg" value="1"/>
+      </end>
+    </ownedConnector>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InterfaceRealization" xmi:id="_mYuMoPhMEeSsQdcgRTzPlg" name="Realization0" client="_FVNIYPhMEeSsQdcgRTzPlg" supplier="_MML2APhGEeSsQdcgRTzPlg" contract="_MML2APhGEeSsQdcgRTzPlg"/>
+  <packagedElement xmi:type="uml:InterfaceRealization" xmi:id="_nCKyQPhMEeSsQdcgRTzPlg" name="Realization1" client="_GI-usPhMEeSsQdcgRTzPlg" supplier="_KhywwPhGEeSsQdcgRTzPlg" contract="_KhywwPhGEeSsQdcgRTzPlg"/>
+  <packagedElement xmi:type="uml:InterfaceRealization" xmi:id="_nkyXIPhMEeSsQdcgRTzPlg" name="Realization2" client="_Gs5UEPhMEeSsQdcgRTzPlg" supplier="_KFM7YPhGEeSsQdcgRTzPlg" contract="_KFM7YPhGEeSsQdcgRTzPlg"/>
+  <packagedElement xmi:type="uml:InterfaceRealization" xmi:id="_oq_KMPhMEeSsQdcgRTzPlg" name="Realization3" client="_HMHmsPhMEeSsQdcgRTzPlg" supplier="_L36PIPhGEeSsQdcgRTzPlg" contract="_L36PIPhGEeSsQdcgRTzPlg"/>
+</uml:Model>
