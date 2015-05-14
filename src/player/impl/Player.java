@@ -4,15 +4,40 @@ import src.player.ifaces.IPlayer;
 import src.player.ifaces.IHandler;
 import src.player.ifaces.IWanderer;
 import src.player.ifaces.IFighter;
-import src.itens.Equipments;
+//import src.itens.Equipments;
 
 public class Player implements IPlayer, IHandler, IWanderer, IFighter
 {
 	public static void main(String[] argv)
 	{
-		System.out.println("oi");
-	}
+		if(argv.length != 1)
+		{
+			System.out.println("You must pass a test as argument");
+			System.exit(1);
+		}
+
+		String[] opts = new String[]{"--testsetters"};
 	
+		if(argv[0].equalsIgnoreCase("--testsetters"))
+		{
+			float[] nums = new float[]{-1.98f,0.0f,0.34f,1.0f,233.32f};
+			Player player = new Player(0.8f,0.1f,0.3f,"franku sama");
+
+			for(int i=0; i<5; i++)
+			{
+				player.setCR(nums[i]);
+				System.out.println("player.setCR(" + nums[i] + ") -> " + player.getCR());
+			}
+			System.out.println("(getKnowledge e getMigue sao implementados de maneira identica)");
+		}
+		else
+		{
+			System.out.println("invalid arguments. Tests available:");
+			for (int i=0; i<opts.length; i++)
+				System.out.println("   " + opts[i]);
+		}
+	}
+
 	//attributes
 	float CR;
 	float knowledge;
@@ -52,32 +77,17 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter
 	//setters
 	public void setCR(float CR)
 	{
-		if(CR > 1.0f)
-			this.CR = 1.0f;
-		else if(CR < 0.0f)
-			this.CR = 0.0f;
-		else
-			this.CR = CR;
+		this.CR = (CR > 1.0f)?1.0f:((CR < 0.0f)?0.0f:CR);
 	}
 
 	public void setKnowledge(float knowledge)
 	{
-		if(knowledge > 1.0f)
-			this.knowledge = 1.0f;
-		else if(knowledge < 0.0f)
-			this.knowledge = 0.0f;
-		else
-			this.knowledge = knowledge;
+		this.knowledge = (knowledge > 1.0f)?1.0f:((knowledge < 0.0f)?0.0f:knowledge);
 	}
 
 	public void setMigue(float migue)
 	{
-		if(migue > 1.0f)
-			this.migue = 1.0f;
-		else if(migue < 0.0f)
-			this.migue = 0.0f;
-		else
-			this.migue = migue;
+		this.migue = (migue > 1.0f)?1.0f:((migue < 0.0f)?0.0f:migue);
 	}
 
 	//Ifighter implementation	
