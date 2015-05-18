@@ -1,0 +1,36 @@
+Facade Pattern - "Fachada", serve para esconder os detalhes de funcionalidade de um certo sistema e simplificar o seu uso, provendo uma "interface" única entre mundo e conjunto dos componentes daquele sistema.
+
+de StackOverflow: "The Facade design pattern simplifies the interface to a complex system; because it is usually composed of all the classes which make up the subsystems of the complex system.
+
+A Facade shields the user from the complex details of the system and provides them with a simplified view of it which is easy to use. It also decouples the code that uses the system from the details of the subsystems, making it easier to modify the system later."
+
+EXEMPLO:
+class CPU
+{
+	...
+	void turnOn()
+	...
+}
+class Memory
+{
+	...
+	void flash(int addr)
+	...
+}
+...
+
+E a classe "facade" seria:
+class Computer
+{
+	CPU cpu;
+	Memory memory;
+	...
+	Computer()
+	{
+		cpu.turnOn();
+		memory.flash(0x02FB);
+		...
+	}
+} 
+
+ONDE SERVIRIA? --
