@@ -1,4 +1,4 @@
-package src.player.ifaces;
+package player.ifaces;
 
 public interface IWanderer
 {

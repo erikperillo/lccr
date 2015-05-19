@@ -1,10 +1,10 @@
-package src.player.impl;
+package player.impl;
 
-import src.player.ifaces.IPlayer;
-import src.player.ifaces.IHandler;
-import src.player.ifaces.IWanderer;
-import src.player.ifaces.IFighter;
-//import src.itens.Equipments;
+import player.ifaces.IPlayer;
+import player.ifaces.IHandler;
+import player.ifaces.IWanderer;
+import player.ifaces.IFighter;
+//import itens.Equipments;
 
 public class Player implements IPlayer, IHandler, IWanderer, IFighter
 {
@@ -142,17 +142,17 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter
 	}
 
 	//IHandler implementation
-	public void getItem(String item)
+	public IItem getItem(String item)
 	{
 		return;
 	}
 
-	public void addItem(String item)
+	public IItem addItem(String item)
 	{
 		return;
 	}
 	
-	public void useItem(String item)
+	public IItem useItem(String item)
 	{
 		return;
 	}	

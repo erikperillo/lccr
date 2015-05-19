@@ -1,6 +1,6 @@
-package itens;
+package item.ifaces;
 
-public interface IEquip extends IItem
+public interface IEquip
 {
 	//returns amount of attack/defense item provides
 	public int getPower();

@@ -1,8 +1,8 @@
-package src.player.ifaces;
+package player.ifaces;
 
 public interface IHandler
 {
-	public void getItem(String item);
-	public void addItem(String item);
-	public void useItem(String item);
+	public IItem getItem(String item);
+	public IItem addItem(String item);
+	public IItem useItem(String item);
 }

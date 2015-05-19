@@ -1,6 +1,6 @@
-package items;
+package item.ifaces;
 
-public interface IConsumable extends IITem
+public interface IConsumable
 {
 	//returns amount of CR the item increases
 	public float getHP();
@@ -18,5 +18,5 @@ public interface IConsumable extends IITem
 	public int getQuantity();
 
 	//stores more items
-	public int stock(int quantity);	
+	public void stock(int quantity);	
 }

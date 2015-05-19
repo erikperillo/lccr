@@ -1,4 +1,4 @@
-package src.items;
+package item.ifaces;
 
 public interface IItem
 {
@@ -9,5 +9,5 @@ public interface IItem
 	public String getType();
 
 	//returns the item's description in a formatted string
-	public String description();
+	public String getDescription();
 }
