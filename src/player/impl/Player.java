@@ -4,7 +4,9 @@ import player.ifaces.IPlayer;
 import player.ifaces.IHandler;
 import player.ifaces.IWanderer;
 import player.ifaces.IFighter;
-//import itens.Equipments;
+import item.ifaces.IItem;
+
+import item.impl.Item;
 
 public class Player implements IPlayer, IHandler, IWanderer, IFighter
 {
@@ -144,15 +146,16 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter
 	//IHandler implementation
 	public IItem getItem(String item)
 	{
-		return;
+		IItem ret_item = new Item("bjb","jhsghbd","kjhkjh");
+		return ret_item;
 	}
 
-	public IItem addItem(String item)
+	public void addItem(IItem item)
 	{
 		return;
 	}
 	
-	public IItem useItem(String item)
+	public void useItem(String item)
 	{
 		return;
 	}	

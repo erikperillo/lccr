@@ -1,6 +1,6 @@
 package item.impl;
 
-import item.ifaces.IItem;
+//import item.ifaces.IItem;
 
 public class EquipFactory implements IItemFactory
 {

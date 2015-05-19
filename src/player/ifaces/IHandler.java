@@ -1,8 +1,10 @@
 package player.ifaces;
 
+import item.ifaces.IItem;
+
 public interface IHandler
 {
 	public IItem getItem(String item);
-	public IItem addItem(String item);
-	public IItem useItem(String item);
+	public void addItem(IItem item);
+	public void useItem(String item);
 }
