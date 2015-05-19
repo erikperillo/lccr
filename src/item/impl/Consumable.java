@@ -12,17 +12,17 @@ public class Consumable extends Item implements IConsumable
 
 	public Consumable(String name, String type, String description, int attack, int defense, int duration)
 	{
-		this.super(name,type,description);
+		super(name,type,description);
 		this.attack = attack;
 		this.defense = defense;
 		this.duration = duration;
 	}
 
-	public float getHP() {;}
-	public int getAttack() {;}
-	public int getDefense() {;}
-	public int getDuration() {;}
-	public int getQuantity() {;}
+	public float getHP() {return 0.0f;}
+	public int getAttack() {return 0;}
+	public int getDefense() {return 0;}
+	public int getDuration() {return 0;}
+	public int getQuantity() {return 0;}
 
 	public void stock(int quantity) {;}
 }	

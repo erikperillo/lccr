@@ -1,8 +1,17 @@
 package item.impl;
 
-public class EquipFactory extends BaseItemFactory
+import item.ifaces.IItem;
+
+public class EquipFactory implements IItemFactory
 {
-	public IItem createItem(String item_path)
+	private String path;
+	
+	public EquipFactory(String path)
+	{
+		this.path = path;
+	}
+	
+	public Item getItem()
 	{
 		String name;
 		String type; //may be weapon/armor
@@ -10,6 +19,7 @@ public class EquipFactory extends BaseItemFactory
 		int power;
 		boolean equipped = false; //does not equip by default
 		//loads from item_path all this stuff above
-		return new Equip(name,type,description,power,equipped);
+		//return new Equip(name,type,description,power,equipped);
+		return new Equip("b0ss","arm","vaisifude",199,true);
 	}
 }

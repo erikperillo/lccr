@@ -7,13 +7,13 @@ public class Equip extends Item implements IEquip
 	private int power;
 	private boolean equipped;
 
-	public Equip(String name, String type, String description, int power, equipped)
+	public Equip(String name, String type, String description, int power, boolean equipped)
 	{
-		this.super(name, type, description);
+		super(name, type, description);
 		this.power = power;
 		this.equipped = equipped;
 	}
 
-	public int getPower {;}
-	public boolean equipped {;}
+	public int getPower() {return 0;}
+	public boolean equipped() {return false;}
 }

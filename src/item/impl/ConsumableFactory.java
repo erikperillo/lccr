@@ -1,19 +1,24 @@
 package item.impl;
 
-public class ConsumableFactory extends BaseItemFactory
+class ConsumableFactory implements IItemFactory
 {
-	public IItem createItem(String item_path)	
+	private String path;
+
+	public ConsumableFactory(String path)
 	{
-		Consumable consumable;
+		this.path = path;
+	}
+
+	@Override
+	public Item getItem()
+	{
 		String name;
-		String type = "consumable";
+		String type;
 		String description;
-		int attack; 
-		int defense; 
+		int attack;
+		int defense;	
 		int duration;
-		//loads from item_path all this suff above
-		consumable = new Consumable(name,type,description,attack,defense,duration);	
-		consumable.stock(1); //already adds one element to accounting
-		return consumable;
+		//opens from database
+		return new Consumable("ai","limao","caralhos alados",4,2,-1);
 	}
 }
