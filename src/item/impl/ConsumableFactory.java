@@ -1,5 +1,8 @@
 package item.impl;
 
+import item.ifaces.IItem;
+import item.ifaces.IItemFactory;
+
 class ConsumableFactory implements IItemFactory
 {
 	private String path;
@@ -10,7 +13,7 @@ class ConsumableFactory implements IItemFactory
 	}
 
 	@Override
-	public Item getItem()
+	public IItem getItem()
 	{
 		String name;
 		String type;

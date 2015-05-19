@@ -1,6 +1,7 @@
 package item.impl;
 
-//import item.ifaces.IItem;
+import item.ifaces.IItem;
+import item.ifaces.IItemFactory;
 
 public class EquipFactory implements IItemFactory
 {
@@ -11,7 +12,8 @@ public class EquipFactory implements IItemFactory
 		this.path = path;
 	}
 	
-	public Item getItem()
+	@Override
+	public IItem getItem()
 	{
 		String name;
 		String type; //may be weapon/armor

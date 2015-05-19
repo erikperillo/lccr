@@ -1,14 +1,12 @@
 package player.impl;
 
-import player.ifaces.IPlayer;
-import player.ifaces.IHandler;
-import player.ifaces.IWanderer;
-import player.ifaces.IFighter;
+import player.ifaces.*;
 import item.ifaces.IItem;
+import java.io.Serializable;
 
 import item.impl.Item;
 
-public class Player implements IPlayer, IHandler, IWanderer, IFighter
+public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializable
 {
 	public static void main(String[] argv)
 	{

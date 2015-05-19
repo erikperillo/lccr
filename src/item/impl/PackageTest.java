@@ -1,5 +1,7 @@
 package item.impl;
 
+import item.ifaces.IItemFactory;
+
 public class PackageTest 
 {
 	public static void main(String argv[])
