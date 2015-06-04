@@ -1,18 +1,21 @@
 package item.impl;
 
 import item.ifaces.IItem;
+import java.io.Serializable;
 
-public class Item implements IItem
+public class Item implements IItem, Serializable
 {
 	private String name;
 	private String type;
 	private String description;
+	private int quantity;
 
-	public Item(String name, String type, String description)
+	public Item(String name, String type, String description, int quantity)
 	{
 		this.name = name;
 		this.type = type;
 		this.description = description;
+		this.setQuantity(quantity);
 	}
 
 	public String getName()
@@ -28,5 +31,15 @@ public class Item implements IItem
 	public String getDescription()
 	{
 		return this.description;
+	}
+
+	public int getQuantity()
+	{
+		return this.quantity;
+	}
+
+	public void setQuantity(int quantity)
+	{
+		this.quantity = (quantity >= 0)?quantity:0;
 	}
 }

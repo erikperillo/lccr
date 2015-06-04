@@ -5,24 +5,36 @@ import item.ifaces.IConsumable;
 public class Consumable extends Item implements IConsumable
 {
 	private float hp;
-	private int attack;
-	private int defense;
+	private float attack;
+	private float defense;
 	private int duration;
-	private int quantity;
 
-	public Consumable(String name, String type, String description, int attack, int defense, int duration)
+	public Consumable(String name, String type, String description, int quantity, float attack, float defense, int duration)
 	{
-		super(name,type,description);
+		super(name,type,description,quantity);
 		this.attack = attack;
 		this.defense = defense;
 		this.duration = duration;
 	}
 
-	public float getHP() {return 0.0f;}
-	public int getAttack() {return 0;}
-	public int getDefense() {return 0;}
-	public int getDuration() {return 0;}
-	public int getQuantity() {return 0;}
+	public float getHP() 
+	{
+		return this.hp;
+	}
 
-	public void stock(int quantity) {;}
+	public float getAttack() 
+	{
+		return this.attack;
+	}
+
+	public float getDefense()
+	{
+		return this.defense;
+	}
+
+	public int getDuration()
+	{
+		return this.duration;
+	}
+
 }	

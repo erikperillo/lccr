@@ -6,17 +6,11 @@ public interface IConsumable
 	public float getHP();
 
 	//returns amount of attack the item increases
-	public int getAttack();
+	public float getAttack();
 
 	//returns amount of defense the item increases
-	public int getDefense();
+	public float getDefense();
 
 	//returns amount of time consumable lasts
 	public int getDuration();
-
-	//returns quantity of this item
-	public int getQuantity();
-
-	//stores more items
-	public void stock(int quantity);	
 }

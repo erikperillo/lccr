@@ -22,6 +22,6 @@ public class EquipFactory implements IItemFactory
 		boolean equipped = false; //does not equip by default
 		//loads from item_path all this stuff above
 		//return new Equip(name,type,description,power,equipped);
-		return new Equip("b0ss","arm","vaisifude",199,true);
+		return new Equip("b0ss","arm","vaisifude",212,199,true);
 	}
 }

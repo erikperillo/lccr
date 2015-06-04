@@ -44,7 +44,7 @@ public class PackageTest
 	}
 	public static void testConsumable(String path)
 	{
-		ConsumableFactory fact = new ConsumableFactory(path);
+		IItemFactory fact = new ConsumableFactory(path);
 		Consumable cons = (Consumable) fact.getItem();
 		
 		System.out.println("\ttype: " + cons.getType());

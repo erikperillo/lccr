@@ -1,48 +1,21 @@
 package player.impl;
 
 import player.ifaces.*;
-import item.ifaces.IItem;
+import player.excepts.NoItemFoundException;
+import item.impl.*;
+import item.ifaces.*;
+import db.ifaces.IDataBase;
 import java.io.Serializable;
-
-import item.impl.Item;
+import java.util.ArrayList;
 
 public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializable
 {
-	public static void main(String[] argv)
-	{
-		if(argv.length != 1)
-		{
-			System.out.println("You must pass a test as argument");
-			System.exit(1);
-		}
-
-		String[] opts = new String[]{"--testsetters"};
-	
-		if(argv[0].equalsIgnoreCase("--testsetters"))
-		{
-			float[] nums = new float[]{-1.98f,0.0f,0.34f,1.0f,233.32f};
-			Player player = new Player(0.8f,0.1f,0.3f,"franku sama");
-
-			for(int i=0; i<5; i++)
-			{
-				player.setCR(nums[i]);
-				System.out.println("player.setCR(" + nums[i] + ") -> " + player.getCR());
-			}
-			System.out.println("(getKnowledge e getMigue sao implementados de maneira identica)");
-		}
-		else
-		{
-			System.out.println("invalid arguments. Tests available:");
-			for (int i=0; i<opts.length; i++)
-				System.out.println("   " + opts[i]);
-		}
-	}
-
 	//attributes
 	float CR;
 	float knowledge;
 	float migue;
 	String type;
+	ArrayList<Item> inventory;
 
 	//ctor
 	public Player(float CR, float knowledge, float migue, String type)
@@ -51,6 +24,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 		this.knowledge = knowledge;
 		this.migue = migue;
 		this.type = type;
+		this.inventory = new ArrayList<Item>();
 	}
 
 	//getters
@@ -61,17 +35,17 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 
 	public float getKnowledge()
 	{
-		return this.CR;
+		return this.knowledge;
 	}
 
 	public float getMigue()
 	{
-		return this.CR;
+		return this.migue;
 	}
 
-	public float getType()
+	public String getType()
 	{
-		return this.CR;
+		return this.type;
 	}
 
 	//setters
@@ -90,43 +64,19 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 		this.migue = (migue > 1.0f)?1.0f:((migue < 0.0f)?0.0f:migue);
 	}
 
+	public ArrayList<Item> getInventory()
+	{
+		return this.inventory;
+	}
+
 	//Ifighter implementation	
 	public float attack(IFighter enemy, String attack)
 	{
-		/*
-		float result;	
-		float k;
-		
-		params = attacks.loadParams(attack);
-		k = params[4];
-
-		result = -1.0*enemy.react(this,attack);	
-
-		this.CR += k * result;
-		this.migue += (1.0 - k) * result;
-
-		return result > 0.0;*/
 		return 0.0f;
 	}	
 
 	public float react(IFighter enemy, String attack)
-	{/*
-		float result;
-		float a,b,c,d,k;
-
-		params = attacks.loadParams(attack);
-
-		a = params[0];
-		b = params[1];
-		c = params[2];
-		d = params[3];
-		k = params[4];
-
-		result = (a*this.CR + b*this.migue + c*enemy.CR + d*enemy.migue) / (a+b+c+d);
-
-		this.CR += k * result;
-		this.migue += (1.0 - k) * result;
-		*/
+	{
 		return 0.0f;
 	}
 
@@ -142,20 +92,46 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 	}
 
 	//IHandler implementation
-	public IItem getItem(String item)
+	public IItem getItem(String item_name) throws NoItemFoundException
 	{
-		IItem ret_item = new Item("bjb","jhsghbd","kjhkjh");
-		return ret_item;
+		for(IItem item: this.inventory)
+			if(item.getName().equalsIgnoreCase(item_name))
+				return item;
+
+		throw new NoItemFoundException("Item '" + item_name + "' not in inventory");
 	}
 
 	public void addItem(IItem item)
 	{
-		return;
+		for(Item it: this.inventory)
+			if(item.getName().equalsIgnoreCase(it.getName()))
+			{
+				it.setQuantity(it.getQuantity() + 1);
+				return;
+			}
+
+		inventory.add((Item)item);	
 	}
 	
-	public void useItem(String item)
+	//uses potion 
+	public void useItem(String item_name) throws NoItemFoundException
 	{
-		return;
+		Consumable consumable = null;
+		
+		for(IItem item: this.inventory)
+			if(item.getName().equalsIgnoreCase(item_name))
+				consumable = (Consumable)item;	
+
+		if(consumable == null)
+			throw new NoItemFoundException("Consumable '" + item_name + "' not in inventory");
+
+		this.setCR(this.getCR() + consumable.getHP());
+		this.setKnowledge(this.getKnowledge() + consumable.getAttack());
+		this.setMigue(this.getMigue() + consumable.getDefense());
+
+		consumable.setQuantity(consumable.getQuantity() - 1);
+
+		if(consumable.getQuantity() == 0)
+			this.inventory.remove(consumable);
 	}	
-	
 }

@@ -22,6 +22,6 @@ class ConsumableFactory implements IItemFactory
 		int defense;	
 		int duration;
 		//opens from database
-		return new Consumable("ai","limao","caralhos alados",4,2,-1);
+		return new Consumable("ai","limao","caralhos alados",2,4,2,-1);
 	}
 }
