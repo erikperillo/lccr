@@ -23,4 +23,9 @@ public class Equip extends Item implements IEquip
 	{
 		return this.equipped;
 	}	
+
+	public void setEquipped(boolean value)
+	{
+		this.equipped = value;
+	}
 }

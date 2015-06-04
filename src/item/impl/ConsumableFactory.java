@@ -8,15 +8,11 @@ import java.io.*;
 
 public class ConsumableFactory implements IItemFactory
 {
-	private String item_name;
-
-	public ConsumableFactory(String item_name)
-	{
-		this.item_name = item_name;
-	}
+	public ConsumableFactory()
+	{;}
 
 	@Override
-	public IItem getItem() throws IOException, NoItemFoundException
+	public IItem getItem(String item_name) throws IOException, NoItemFoundException
 	{
 		DataBase db = DataBase.getInstance();
 		String filename = "consumable_" + item_name + ".ser";

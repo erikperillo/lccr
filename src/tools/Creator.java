@@ -9,7 +9,7 @@ class Creator
 {
 	public static void main(String[] argv)
 	{
-		String[] options = {"consumable","equip","quiz"};
+		String[] options = {"attack","equip","quiz"};
 
 		if(argv.length < 1)
 		{
@@ -32,12 +32,15 @@ class Creator
 			}
 		}
 
+		Scanner keyboard = new Scanner(System.in);
+		DataBase db = DataBase.getInstance();
+		String ans;
+
 		if(argv[0].equalsIgnoreCase("consumable") || argv[0].equalsIgnoreCase("equip"))
 		{
-			String name,type,description,ans;
+			String name,type,description;
 			int quantity;
 			Item item = null;
-			Scanner keyboard = new Scanner(System.in);
 
 			System.out.println("give " + argv[0] + " information ...");
 
@@ -94,7 +97,6 @@ class Creator
 			if(!ans.equalsIgnoreCase("y"))
 				System.exit(0);
 
-			DataBase db = DataBase.getInstance();
 			try
 			{
 				db.save(item, argv[0] + "_" + item.getName() + ".ser");
@@ -110,6 +112,44 @@ class Creator
 		else if(argv[0].equalsIgnoreCase("quiz"))
 		{
 			;
+		}
+		else if(argv[0].equalsIgnoreCase("attack"))
+		{
+			String name;
+			Integer[] consts = new Integer[4];
+
+			System.out.print("name of attack: ");
+			name = keyboard.nextLine();
+			
+			System.out.print("constant of attacker for knowledge: ");
+			consts[0] = keyboard.nextInt();
+
+			System.out.print("constant of attacker for migue: ");
+			consts[1] = keyboard.nextInt();
+
+			System.out.print("constant of reactor for knowledge: ");
+			consts[2] = keyboard.nextInt();
+
+			System.out.print("constant of reactor for migue: ");
+			consts[3] = keyboard.nextInt();
+
+			System.out.print("save object? (y/n) ");
+			ans = keyboard.next();
+			
+			if(!ans.equalsIgnoreCase("y"))
+				System.exit(0);
+
+			try
+			{
+				db.save(consts, argv[0] + "_" + name + ".ser");
+			}
+			catch(IOException e)
+			{
+				System.out.println("could not save object!");
+				System.exit(1);
+			}
+
+			System.out.println("object succesfully saved to '" + db.getRoot() + "/" + argv[0] + "_" + name + ".ser");
 		}
 	}
 }

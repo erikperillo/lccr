@@ -1,7 +1,10 @@
 package player.ifaces;
 
+import player.excepts.*;
+import java.io.IOException;
+
 public interface IFighter
 {
-	public float attack(IFighter enemy, String attack);
-	public float react(IFighter enemy, String attack);
+	public float attack(String attack) throws IOException, AttackNotFoundException;
+	public float react(String attack) throws IOException, AttackNotFoundException;
 }

@@ -11,13 +11,14 @@ public class Quiz implements IEvent
 	private String[] answers;
 	private int rigth_answers = 0;
 
-	public Quiz(String[] questions, String[] answers) throws Exception
+	public Quiz(String name, String[] questions, String[] answers) throws Exception
 	{
 		if(questions.length != answers.length)
 			throw new Exception("Number of questions and answers must match");
 
 		this.questions = questions;
 		this.answers = answers;
+		this.name = name;
 	}
 
 	public String getName()

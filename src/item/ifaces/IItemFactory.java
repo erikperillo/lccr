@@ -5,5 +5,5 @@ import java.io.IOException;
 
 public interface IItemFactory
 {
-	public abstract IItem getItem() throws IOException, NoItemFoundException;
+	IItem getItem(String item_name) throws IOException, NoItemFoundException;
 }

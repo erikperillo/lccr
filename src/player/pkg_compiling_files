@@ -18,3 +18,6 @@
 ../db/impl/DataBase.java
 ../db/ifaces/IDataBase.java
 ../item/excepts/NoItemFoundException.java
+./impl/PlayerBuilder.java 
+./ifaces/IPlayerBuilder.java
+./excepts/AttackNotFoundException.java

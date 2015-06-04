@@ -1,30 +1,38 @@
 package player.impl;
 
 import player.ifaces.*;
+import player.excepts.*;
+
 import item.excepts.NoItemFoundException;
 import item.impl.*;
 import item.ifaces.*;
-import db.ifaces.IDataBase;
-import java.io.Serializable;
+
+import db.impl.DataBase;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializable
 {
 	//attributes
-	float CR;
-	float knowledge;
-	float migue;
-	String type;
-	ArrayList<Item> inventory;
+	private float CR;
+	private float knowledge;
+	private float migue;
+	private String type;
+	private String name;
+	private ArrayList<Item> inventory;
+	private ArrayList<String> attacks;
 
 	//ctor
-	public Player(float CR, float knowledge, float migue, String type)
+	public Player(String name, String type, float CR, float knowledge, float migue)
 	{
 		this.CR = CR;
 		this.knowledge = knowledge;
 		this.migue = migue;
 		this.type = type;
+		this.name = name;
 		this.inventory = new ArrayList<Item>();
+		this.attacks = new ArrayList<String>();
 	}
 
 	//getters
@@ -48,6 +56,21 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 		return this.type;
 	}
 
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public ArrayList<Item> getInventory()
+	{
+		return this.inventory;
+	}
+
+	public ArrayList<String> getAttacks()
+	{
+		return this.attacks;
+	}
+
 	//setters
 	public void setCR(float CR)
 	{
@@ -64,20 +87,31 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 		this.migue = (migue > 1.0f)?1.0f:((migue < 0.0f)?0.0f:migue);
 	}
 
-	public ArrayList<Item> getInventory()
+	//listing functions
+	public String[] getLabeledLevels()
 	{
-		return this.inventory;
+		String[] ret = {"CR: " + Float.toString(this.getCR()),
+                   		"conhecimento: " + Float.toString(this.getKnowledge()),
+						"migue: " + Float.toString(this.getMigue())};
+		return ret;
 	}
 
-	//Ifighter implementation	
-	public float attack(IFighter enemy, String attack)
+	public String[] getAttacksNames()
 	{
-		return 0.0f;
-	}	
+		String[] ret = new String[this.attacks.size()];
+		return this.attacks.toArray(ret);
+	}
 
-	public float react(IFighter enemy, String attack)
+	public String[] getItemsNames()
 	{
-		return 0.0f;
+		String[] ret;
+		ArrayList<String> names = new ArrayList<String>();
+
+		for(Item item: this.inventory)
+			names.add(item.getName());	
+
+		ret = new String[names.size()];
+		return names.toArray(ret);
 	}
 
 	//IWanderer implementation
@@ -90,7 +124,93 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 	{
 		return;
 	}
+	
+	//attack functions
+	public void addAttack(String attack_name)
+	{
+		this.attacks.add(attack_name);
+	}
 
+	public boolean hasAttack(String attack_name)
+	{
+		for(String atk: this.attacks)
+			if(atk.equalsIgnoreCase(attack_name))
+				return true;
+
+		return false;
+	}
+
+	private Integer[] getAttackFromDB(String attack_name) throws AttackNotFoundException, IOException
+	{
+		DataBase db = DataBase.getInstance();
+		Integer[] weights;
+
+		try
+		{
+			weights = (Integer[])db.load(attack_name);
+			return weights;
+		}
+		catch(IOException e)
+		{
+			throw e;
+		}
+		catch(ClassNotFoundException e)
+		{	
+			throw new AttackNotFoundException("Attack not found in '" + db.getRoot() + "'");
+		}
+	}
+
+	//Ifighter implementation	
+	public float attack(String attack_name) throws AttackNotFoundException, IOException
+	{
+		DataBase db;
+		Integer[] weights = null;
+		int attack_additional = 0;
+
+		for(Item item: this.inventory)
+			if(item.getType().equalsIgnoreCase("arma") || item.getType().equalsIgnoreCase("weapon"))
+				attack_additional += ((Equip)item).equipped()?((Equip)item).getPower():0;
+
+		if(this.hasAttack(attack_name))
+		{
+			try
+			{
+				weights = getAttackFromDB(attack_name);
+			}
+			catch(IOException | AttackNotFoundException e)
+			{
+				throw e;
+			}
+
+			return this.knowledge*(attack_additional + weights[0]) + this.migue*weights[1];
+		}	
+		else
+			throw new AttackNotFoundException("No such attack '" + attack_name + "' in player's list of attacks");
+	}	
+
+	public float react(String attack_name) throws AttackNotFoundException, IOException
+	{
+		Integer[] weights = null;		
+		int defense_additional = 0;
+
+		for(Item item: this.inventory)
+			if(!item.getType().equalsIgnoreCase("arma") && !item.getType().equalsIgnoreCase("weapon"))
+				defense_additional += ((Equip)item).equipped()?((Equip)item).getPower():0;
+		
+		try
+		{
+			weights = getAttackFromDB(attack_name);
+		}
+		catch(AttackNotFoundException | IOException e)
+		{
+			throw e;
+		}
+		
+		return this.migue*(defense_additional + weights[2]) + this.knowledge*weights[3];
+	}
+
+
+	//items functions
 	//IHandler implementation
 	public IItem getItem(String item_name) throws NoItemFoundException
 	{

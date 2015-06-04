@@ -33,19 +33,19 @@ public class PackageTest
 		}
 	}
 
-	public static void testEquip(String path)
+	public static void testEquip(String name)
 	{
-		IItemFactory fact = new EquipFactory(path);
-		Equip equip = (Equip) fact.getItem();
+		IItemFactory fact = new EquipFactory();
+		Equip equip = (Equip) fact.getItem(name);
 		
 		System.out.println("\ttype: " + equip.getType());
 		System.out.println("\tdescription: " + equip.getDescription());
 		System.out.println("\tequipped: " + equip.equipped());
 	}
-	public static void testConsumable(String path)
+	public static void testConsumable(String name)
 	{
-		IItemFactory fact = new ConsumableFactory(path);
-		Consumable cons = (Consumable) fact.getItem();
+		IItemFactory fact = new ConsumableFactory();
+		Consumable cons = (Consumable) fact.getItem(name);
 		
 		System.out.println("\ttype: " + cons.getType());
 		System.out.println("\tdescription: " + cons.getDescription());

@@ -18,7 +18,7 @@ public class PackageTest
 
 		try
 		{
-			player = PlayerMaker.getPlayer("varzea");
+			player = PlayerMaker.getPlayer("varzea","lel");
 		}
 		catch(UnknownPlayerTypeException e)
 		{
@@ -33,10 +33,10 @@ public class PackageTest
 
 		for(String cons_name: consumables_names)
 		{
-			item_loader = new ConsumableFactory(cons_name);
+			item_loader = new ConsumableFactory();
 			try
 			{
-				player.addItem(item_loader.getItem());
+				player.addItem(item_loader.getItem(cons_name));
 			}
 			catch(IOException|NoItemFoundException e)
 			{
@@ -45,10 +45,10 @@ public class PackageTest
 		}
 		for(String equip_name: equips_names)
 		{
-			item_loader = new EquipFactory(equip_name);
+			item_loader = new EquipFactory();
 			try
 			{
-				player.addItem(item_loader.getItem());
+				player.addItem(item_loader.getItem(equip_name));
 			}
 			catch(IOException|NoItemFoundException e)
 			{
@@ -56,9 +56,5 @@ public class PackageTest
 			}
 		}
 
-		if(player.getInventory().size() > 0)
-			System.out.println("Itens:");
-		for(Item it: player.getInventory())
-			System.out.println("\t" + it.getDescription());
 	}
 }

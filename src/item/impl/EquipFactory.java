@@ -8,15 +8,11 @@ import db.impl.DataBase;
 
 public class EquipFactory implements IItemFactory
 {
-	private String item_name;
-	
-	public EquipFactory(String item_name)
-	{
-		this.item_name = item_name;
-	}
+	public EquipFactory()
+	{;}
 	
 	@Override
-	public IItem getItem() throws IOException, NoItemFoundException
+	public IItem getItem(String item_name) throws IOException, NoItemFoundException
 	{
 		DataBase db = DataBase.getInstance();
 		String filename = "equip_" + item_name + ".ser";
