@@ -254,4 +254,26 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 		if(consumable.getQuantity() == 0)
 			this.inventory.remove(consumable);
 	}	
+
+	public void describe()
+	{
+		System.out.println("Player '" + this.getName() + "' of type '" + this.getType() + "':");
+
+		System.out.println("Levels:");
+		for(String lvl: this.getLabeledLevels())
+			System.out.println("\t" + lvl);
+
+		System.out.println("Attacks:");
+		for(String atk: this.getAttacksNames())
+			System.out.println("\t-" + atk);
+
+		System.out.println("Items:");
+		for(Item it: this.inventory)
+		{
+			System.out.print("\t-"+ it.getName() + " (" + it.getType() + ")");
+			if(it instanceof Equip)
+				System.out.print(((Equip)it).equipped()?" [equipped]":"");
+			System.out.println();
+		}
+	}
 }

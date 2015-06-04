@@ -4,6 +4,8 @@ import item.impl.*;
 import item.ifaces.*;
 import item.excepts.*;
 import player.excepts.UnknownPlayerTypeException;
+import item.excepts.*;
+import java.io.IOException;
 
 import java.io.*;
 
@@ -11,50 +13,39 @@ public class PackageTest
 {
 	public static void main(String argv[])
 	{
-		Player player = null;
-		String[] consumables_names = {"vodka","agua de coco","lel"};
-		String[] equips_names = {"Espada","daora","caneta dourada"};
-		IItemFactory item_loader;
+		String[] attacks = {"Pergunta Dificil","Resposta Enrolada"};
+		String[] equips = {"Caneta Dourada","Colinha de bolso"};
+		String[] consumables = {"Vodka Orloff"};
+
+		PlayerBuilder pb = new PlayerBuilder("varzea","jose",attacks,equips,consumables);
 
 		try
 		{
-			player = PlayerMaker.getPlayer("varzea","lel");
+			pb.createPlayer();
+			pb.setAttacks();
+			pb.setEquips();
+			pb.setConsumables();
 		}
-		catch(UnknownPlayerTypeException e)
+		catch(UnknownPlayerTypeException | IOException | NoItemFoundException e)
 		{
-			System.out.println(e.getMessage());
-			System.exit(1);
+			System.out.println("WARNING: " + e.getMessage());
 		}
 
-		System.out.println("Player type '" + player.getType());
-		System.out.println("\tmigue: " + player.getMigue());
-		System.out.println("\tCR: " + player.getCR());
-		System.out.println("\tknowledge: " + player.getKnowledge());
+		Player player = pb.getPlayer();
 
-		for(String cons_name: consumables_names)
-		{
-			item_loader = new ConsumableFactory();
-			try
-			{
-				player.addItem(item_loader.getItem(cons_name));
-			}
-			catch(IOException|NoItemFoundException e)
-			{
-				System.out.println("error : " + e.getMessage());
-			}
-		}
-		for(String equip_name: equips_names)
-		{
-			item_loader = new EquipFactory();
-			try
-			{
-				player.addItem(item_loader.getItem(equip_name));
-			}
-			catch(IOException|NoItemFoundException e)
-			{
-				System.out.println("error: " + e.getMessage());
-			}
-		}
+		player.describe();
+		System.out.println();
 
+		try
+		{
+			player.getItem("Caneta Dourada").describe();
+			System.out.println();
+			player.getItem("Vodka Orloff").describe();
+			System.out.println();
+		}
+		catch(NoItemFoundException e)
+		{
+			System.out.println("WARNING: " + e.getMessage());
+		}
 	}
 }

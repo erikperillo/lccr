@@ -28,4 +28,12 @@ public class Equip extends Item implements IEquip
 	{
 		this.equipped = value;
 	}
+
+	@Override
+	public void describe()
+	{
+		super.describe();
+		System.out.println("\tpower: " + this.getPower());
+		System.out.println("\tequipped: " + this.equipped());
+	}
 }

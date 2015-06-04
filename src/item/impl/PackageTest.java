@@ -6,8 +6,6 @@ public class PackageTest
 {
 	public static void main(String argv[])
 	{
-		//String options[] = new String[] {"-equipfact", "-consumablefact"};
-			
 		if(argv.length > 0)
 		{
 			if(argv[0].equalsIgnoreCase("equipfact"))

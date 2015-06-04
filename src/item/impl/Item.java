@@ -27,10 +27,17 @@ public class Item implements IItem, Serializable
 	{
 		return this.type;
 	}
-
+	
 	public String getDescription()
 	{
 		return this.description;
+	}
+
+	public void describe()
+	{
+		System.out.println("Item '" + this.getName() + "' of type '" + this.getType() + "':");
+		System.out.println("\tdescription: " + this.getDescription());
+		System.out.println("\tquantity: " + this.getQuantity());
 	}
 
 	public int getQuantity()

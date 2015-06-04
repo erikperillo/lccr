@@ -23,7 +23,7 @@ public class EquipFactory implements IItemFactory
 		}
 		catch(FileNotFoundException | ClassNotFoundException e)
 		{
-			throw new NoItemFoundException("Equip object not found in '" + db.getRoot() + "/" + "filename");
+			throw new NoItemFoundException("Equip object not found in '" + db.getRoot() + "/" + filename + "'");
 		}
 		catch(IOException e)
 		{
