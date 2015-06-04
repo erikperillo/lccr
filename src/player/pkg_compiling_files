@@ -15,7 +15,6 @@
 ../item/impl/EquipFactory.java
 ../item/impl/Equip.java
 ../item/impl/Item.java
-../item/impl/PackageTest.java
 ../db/impl/DataBase.java
 ../db/ifaces/IDataBase.java
-excepts/NoItemFoundException.java
+../item/excepts/NoItemFoundException.java

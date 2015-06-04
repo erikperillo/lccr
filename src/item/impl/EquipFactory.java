@@ -2,26 +2,36 @@ package item.impl;
 
 import item.ifaces.IItem;
 import item.ifaces.IItemFactory;
+import item.excepts.NoItemFoundException;
+import java.io.*;
+import db.impl.DataBase;
 
 public class EquipFactory implements IItemFactory
 {
-	private String path;
+	private String item_name;
 	
-	public EquipFactory(String path)
+	public EquipFactory(String item_name)
 	{
-		this.path = path;
+		this.item_name = item_name;
 	}
 	
 	@Override
-	public IItem getItem()
+	public IItem getItem() throws IOException, NoItemFoundException
 	{
-		String name;
-		String type; //may be weapon/armor
-		String description;
-		int power;
-		boolean equipped = false; //does not equip by default
-		//loads from item_path all this stuff above
-		//return new Equip(name,type,description,power,equipped);
-		return new Equip("b0ss","arm","vaisifude",212,199,true);
+		DataBase db = DataBase.getInstance();
+		String filename = "equip_" + item_name + ".ser";
+
+		try
+		{
+			return (Equip)db.load(filename);
+		}
+		catch(FileNotFoundException | ClassNotFoundException e)
+		{
+			throw new NoItemFoundException("Equip object not found in '" + db.getRoot() + "/" + "filename");
+		}
+		catch(IOException e)
+		{
+			throw e;
+		}
 	}
 }

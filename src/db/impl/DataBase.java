@@ -72,7 +72,7 @@ public class DataBase implements IDataBase
 		return obj;
 	}
 
-	public static String getRoot()
+	public String getRoot()
 	{
 		return DataBase.root;
 	}

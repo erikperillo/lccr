@@ -2,26 +2,36 @@ package item.impl;
 
 import item.ifaces.IItem;
 import item.ifaces.IItemFactory;
+import item.excepts.NoItemFoundException;
+import db.impl.DataBase;
+import java.io.*;
 
-class ConsumableFactory implements IItemFactory
+public class ConsumableFactory implements IItemFactory
 {
-	private String path;
+	private String item_name;
 
-	public ConsumableFactory(String path)
+	public ConsumableFactory(String item_name)
 	{
-		this.path = path;
+		this.item_name = item_name;
 	}
 
 	@Override
-	public IItem getItem()
+	public IItem getItem() throws IOException, NoItemFoundException
 	{
-		String name;
-		String type;
-		String description;
-		int attack;
-		int defense;	
-		int duration;
-		//opens from database
-		return new Consumable("ai","limao","caralhos alados",2,4,2,-1);
+		DataBase db = DataBase.getInstance();
+		String filename = "consumable_" + item_name + ".ser";
+
+		try
+		{
+			return (Consumable) db.load(filename);
+		}
+		catch(FileNotFoundException | ClassNotFoundException e)
+		{
+			throw new NoItemFoundException("Consumable object not found in '" + db.getRoot() + "/" + filename);
+		} 	
+		catch(IOException e)
+		{
+			throw e;
+		}
 	}
 }

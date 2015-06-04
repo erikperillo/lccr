@@ -1,7 +1,7 @@
 package player.ifaces;
 
 import item.ifaces.IItem;
-import player.excepts.NoItemFoundException;
+import item.excepts.NoItemFoundException;
 
 public interface IHandler
 {

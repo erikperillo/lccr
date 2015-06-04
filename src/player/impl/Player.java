@@ -1,7 +1,7 @@
 package player.impl;
 
 import player.ifaces.*;
-import player.excepts.NoItemFoundException;
+import item.excepts.NoItemFoundException;
 import item.impl.*;
 import item.ifaces.*;
 import db.ifaces.IDataBase;

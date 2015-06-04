@@ -6,7 +6,7 @@ public class Fight implements IEvent
 {
 	String ID;
 
-	public class Fight(){;}
+	public Fight(){;}
 
 	public String getID();
 	public void routine();

@@ -2,11 +2,11 @@ package lccr.events.impl;
 
 import lccr.events.ifaces.IEvent;
 
-public class Quiz implements IEvent
+public class Maze implements IEvent
 {
 	String ID;
 
-	public class Quiz(){;}
+	public Maze(){;}
 
 	public String getID();
 	public void routine();

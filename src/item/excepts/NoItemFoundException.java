@@ -1,4 +1,4 @@
-package player.excepts;
+package item.excepts;
 
 import java.lang.Exception;
 
