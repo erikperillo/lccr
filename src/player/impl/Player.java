@@ -12,7 +12,7 @@ import db.impl.DataBase;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializable
+public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject, Serializable
 {
 	//attributes
 	private float CR;
@@ -22,6 +22,8 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 	private String name;
 	private ArrayList<Item> inventory;
 	private ArrayList<String> attacks;
+	private ArrayList<IObserver> people_that_want_my_position;
+	private int room;
 
 	//ctor
 	public Player(String name, String type, float CR, float knowledge, float migue)
@@ -115,14 +117,15 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 	}
 
 	//IWanderer implementation
-	public String getLocation()
+	public int getLocation()
 	{
-		return "";
+		return this.room;
 	}
 	
-	public void move(String location)
+	public void move(int room)
 	{
-		return;
+		this.room = room;
+		this.notifyObservers();
 	}
 	
 	//attack functions
@@ -275,5 +278,21 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, Serializa
 				System.out.print(((Equip)it).equipped()?" [equipped]":"");
 			System.out.println();
 		}
+	}
+
+	public void subscribe(IObserver observer)
+	{
+		this.people_that_want_my_position.add(observer);
+	}
+
+	public void unsubscribe(IObserver observer)
+	{
+		this.people_that_want_my_position.remove(observer);
+	}
+
+	public void notifyObservers()
+	{
+		for(IObserver obs: people_that_want_my_position)
+			obs.update(this.room);
 	}
 }

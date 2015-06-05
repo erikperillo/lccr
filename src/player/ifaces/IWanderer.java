@@ -2,6 +2,6 @@ package player.ifaces;
 
 public interface IWanderer
 {
-	public String getLocation();
-	public void move(String location);
+	int getLocation();
+	void move(int location);
 }

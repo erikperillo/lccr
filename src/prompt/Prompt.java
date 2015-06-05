@@ -1,17 +1,17 @@
-package prompt;
+	package prompt;
 
-import java.util.Scanner;
+	import java.util.Scanner;
 
-public class Prompt
-{
-	private String prompt_symbol;
-
-	public Prompt(String symbol)
+	public class Prompt
 	{
-		this.prompt_symbol = symbol;
-	}
+		private String prompt_symbol;
 
-	public boolean validAnswer(String ans, String[] options)
+		public Prompt(String symbol)
+		{
+			this.prompt_symbol = symbol;
+		}
+
+		public boolean validAnswer(String ans, String[] options)
 	{
 		for(String opt: options)
 			if(ans.equalsIgnoreCase(opt))
@@ -51,5 +51,21 @@ public class Prompt
 		return ans;
 	}
 
+	public String queryAnswerYesOrNo(String message)
+	{
+		String ans, confirmation;
+		String[] yes_vec = {"y","yes","sim","s","si"};
+
+		while(true)
+		{
+			ans = queryAnswer(message);
+			confirmation = queryAnswer("Confirma a resposta? (s/n) ",false);
+
+			if(validAnswer(confirmation,yes_vec))
+				break;
+		}	
+
+		return ans;
+	}
 
 }

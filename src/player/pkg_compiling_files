@@ -21,3 +21,5 @@
 ./impl/PlayerBuilder.java 
 ./ifaces/IPlayerBuilder.java
 ./excepts/AttackNotFoundException.java
+./ifaces/IObserver.java
+./ifaces/ISubject.java

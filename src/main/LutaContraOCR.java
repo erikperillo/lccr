@@ -2,8 +2,10 @@ package main;
 
 import java.io.*;
 import java.util.*;
+import java.lang.*;
 
 import player.impl.*;
+import player.excepts.*;
 
 import event.ifaces.*;
 import event.impl.*;
@@ -26,11 +28,23 @@ public class LutaContraOCR
 
 	public static void main(String[] argv)
 	{
-		final String loop_message = "Use:\n\t'aqui' para ver onde esta;\n\t'listar' para listar alguma propriedade (itens/ataques)\n\t'info' <NOME> para informacao sobre alguma coisa";
+		//constantes
+		final String loop_message = "Use:\n\t'mapa' [mover/aqui] para acoes no mapa;\n\t'listar' [itens/ataques] para listar alguma propriedade\n\t'info' [mapa/player/(item ITEM)/(ataque ATAQUE)] para informacao sobre alguma coisa";
 		final String[] def_opts = {"aqui","listar","info"};
-		Prompt prompt = new Prompt(">>> ");
-		String ans;
+		final String[] map_opts = {"mover","aqui"};
+		final String[] info_opts = {"mapa","player","item","ataque"};
+		final String[] list_opts = {"itens","ataques"};
+		final String[] positives = {"sim","s","yes","y","yep"};
 
+		//variaveis de leitura de console
+		Prompt prompt = new Prompt(">>> ");
+		String ans, name, type, operand;
+		Scanner line;
+	
+		//variaveis do player
+		Player player;
+
+		//INICIO DO JOGO
 		System.out.println(welcome_message);
 
 		System.out.println("\nE importante decidir desde o inicio o tipo de aluno que voce vai ser. Os existentes sao:");
@@ -38,13 +52,72 @@ public class LutaContraOCR
 		System.out.println(varzea_info);
 		System.out.println(cinco_bola_info);
 		
-		ans = prompt.queryValidAnswer("Qual voce quer ser? (nerd, varzea, cinco bola)",player_types);
-		System.out.println("voce escolheu ser um aluno " + ans + ".\n");
+		while(true)
+		{
+			type = prompt.queryValidAnswer("\nQual tipo voce quer ser? (nerd, varzea, cinco bola)",player_types);
+			System.out.println("Voce escolheu ser um aluno " + type + ".\n");
+			name = prompt.queryAnswer("Escolha um nome para o seu personagem:");
+			System.out.println("Voce escolheu o nome '" + name + "'.");
+			ans = prompt.queryAnswer("Confirma as respostas? (s/n) ",false);
+			if(prompt.validAnswer(ans,positives))
+				break;
+		}
+
+		try
+		{
+			player = PlayerMaker.getPlayer(type,name);
+		}
+		catch(UnknownPlayerTypeException e)
+		{
+			System.out.println("ERRO: " + e.getMessage());
+			System.exit(1);
+		}
+
+		//main loop
+		System.out.println();
 			
 		while(true)
 		{
-			ans = prompt.queryValidAnswer(loop_message,def_opts);
-			System.out.println("tomando acao com '" + ans + " ...");
+			ans = prompt.queryAnswer(loop_message);
+			String[] operations;
+			line = new Scanner(ans);
+	
+			try
+			{
+				ans = line.next();
+
+				switch(ans)
+				{
+					case "mapa":
+						operations = map_opts;
+						ans = line.next();
+						if(!prompt.validAnswer(ans,operations))
+						{
+							System.out.println("Opcao invalida para mapa! Tente de novo");
+							break;
+						}
+						System.out.println("tomando acao com 'mapa " + ans + "' ...");
+						break;
+
+					case "info":
+						operations = info_opts;
+						ans = line.next();
+						if(!prompt.validAnswer(ans,operations))
+						{
+							System.out.println("Opcao invalida para listagem! Tente de novo");
+							break;
+						}
+						System.out.println("tomando acao com 'info " + ans + "' ...");
+						break;
+
+					default:
+						System.out.println("operacao: " + ans);
+				}
+			}
+			catch(NoSuchElementException e)
+			{
+				System.out.println("Comando invalido! tente de novo");
+			}
 		}
 	}
 }
