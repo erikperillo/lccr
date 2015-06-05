@@ -1,6 +1,5 @@
 package main;
 
-import java.lang.*;
 import java.io.*;
 import java.util.*;
 
@@ -11,6 +10,8 @@ import event.impl.*;
 
 import item.impl.*;
 import item.ifaces.*;
+
+import prompt.Prompt;
 
 public class LutaContraOCR
 {
@@ -23,50 +24,11 @@ public class LutaContraOCR
 	
 	public final static String[] player_types = {"nerd","varzea","cinco bola"};
 
-	public static boolean validAnswer(String ans, String[] options)
-	{
-		for(String opt: options)
-			if(ans.equalsIgnoreCase(opt))
-				return true;
-
-		return false;
-	}
-	
-	public static String queryAnswer(String message, boolean prompt)
-	{
-		Scanner keyboard = new Scanner(System.in);
-
-		System.out.print(message + (prompt?"\n>>> ":""));
-
-		return keyboard.nextLine();
-	}
-
-	public static String queryAnswer(String message)
-	{
-		return queryAnswer(message,true);
-	}
-
-	public static String queryValidAnswer(String message, String[] options)
-	{
-		String ans;
-		ans = queryAnswer(message);
-
-		while(true)
-		{
-			if(validAnswer(ans,options))
-				break;
-
-			System.out.println("Resposta invalida! Tente de novo.");	
-			ans = queryAnswer(">>> ",false);
-		}
-
-		return ans;
-	}
-
 	public static void main(String[] argv)
 	{
 		final String loop_message = "Use:\n\t'aqui' para ver onde esta;\n\t'listar' para listar alguma propriedade (itens/ataques)\n\t'info' <NOME> para informacao sobre alguma coisa";
 		final String[] def_opts = {"aqui","listar","info"};
+		Prompt prompt = new Prompt(">>> ");
 		String ans;
 
 		System.out.println(welcome_message);
@@ -76,12 +38,12 @@ public class LutaContraOCR
 		System.out.println(varzea_info);
 		System.out.println(cinco_bola_info);
 		
-		ans = queryValidAnswer("Qual voce quer ser? (nerd, varzea, cinco bola)",player_types);
+		ans = prompt.queryValidAnswer("Qual voce quer ser? (nerd, varzea, cinco bola)",player_types);
 		System.out.println("voce escolheu ser um aluno " + ans + ".\n");
 			
 		while(true)
 		{
-			ans = queryValidAnswer(loop_message,def_opts);
+			ans = prompt.queryValidAnswer(loop_message,def_opts);
 			System.out.println("tomando acao com '" + ans + " ...");
 		}
 	}
