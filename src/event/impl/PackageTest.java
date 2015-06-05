@@ -11,16 +11,12 @@ class PackageTest
 {
 	public static void main(String argv[]) throws Exception
 	{
-		DataBase db = DataBase.getInstance();
-
-		/*teste do quiz
-		String[] questions = {"voce e homem?","setembro chove?","hue?","vaisifude"};
-		String[] answers = {"sim","BRBR","kjh","blz"};
+		IEventFactory event_fact = new QuizFactory();
 		Quiz quiz = null;
 
 		try
 		{
-			 quiz = new Quiz("test",questions,answers);
+			 quiz = (Quiz)event_fact.getEvent("Domingao do Faustao");
 		}
 		catch(Exception e)
 		{
@@ -31,8 +27,7 @@ class PackageTest
 		quiz.routine();
 
 		System.out.println("voce acertou " + quiz.getRightAnswers() + " de " + quiz.getTotalQuestions());
-		*/
-
+/*
 		Player player = null, enemy = null;
 		Integer[] amor,bjok;
 		ConsumableFactory consumable = new ConsumableFactory();
@@ -66,5 +61,6 @@ class PackageTest
 		Fight fight = new Fight("b0ss",player,enemy,4);
 
 		fight.routine();
+	*/
 	}
 }

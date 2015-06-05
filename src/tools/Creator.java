@@ -1,13 +1,15 @@
 package tools;
 
+import event.impl.*;
 import item.impl.*;
 import java.util.Scanner;
 import db.impl.DataBase;
 import java.io.*;
+import java.lang.*;
 
 class Creator
 {
-	public static void main(String[] argv) throws FileNotFoundException
+	public static void main(String[] argv) throws Exception, FileNotFoundException
 	{
 		String[] options = {"attack","equip","consumable","quiz"};
 
@@ -111,7 +113,37 @@ class Creator
 		}
 		else if(argv[0].equalsIgnoreCase("quiz"))
 		{
-			System.out.println("not implemented yet :)");
+			int n_questions, n_ans = 4;
+			Quiz quiz;
+			String name;
+			String[][] answers;
+			String[] questions;
+
+			if(argv.length < 2) System.out.print("quiz name: ");
+			name = scanner.nextLine();
+
+			if(argv.length < 2) System.out.print("how many questions? ");
+			n_questions	= Integer.parseInt(scanner.nextLine());
+
+			questions = new String[n_questions];
+			answers = new String[n_questions][n_ans];
+
+			for(int i=0; i<n_questions; i++)
+			{
+				if(argv.length < 2) System.out.print("question " + (i+1) + ": ");
+				questions[i] = scanner.nextLine();
+
+				for(int j=0; j<n_ans; j++)
+				{
+					if(argv.length < 2) System.out.print("\tanswer " + (j+1) + " out of " + n_ans + ((j==0)?" (correct)":"") + ": ");
+					answers[i][j] = scanner.nextLine();	
+				}
+			}
+
+			quiz = new Quiz(name,questions,answers);
+			db.save(quiz,"quiz_" + name + ".ser");
+			
+			System.out.println("Quiz succesfully saved to '" + db.getRoot() + "/quiz_" + name + ".ser'");
 		}
 		else if(argv[0].equalsIgnoreCase("attack"))
 		{
