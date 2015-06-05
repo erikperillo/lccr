@@ -23,3 +23,5 @@
 ./excepts/AttackNotFoundException.java
 ./ifaces/IObserver.java
 ./ifaces/ISubject.java
+ifaces/IDirector.java
+impl/PlayerBuilderDirector.java

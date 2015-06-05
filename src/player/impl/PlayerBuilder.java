@@ -30,7 +30,7 @@ public class PlayerBuilder implements IPlayerBuilder
 	{
 		try
 		{
-			this.player = PlayerMaker.getPlayer(name,type);
+			this.player = PlayerMaker.getPlayer(type,name);
 		}
 		catch(UnknownPlayerTypeException e)
 		{

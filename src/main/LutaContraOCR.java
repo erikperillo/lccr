@@ -12,6 +12,7 @@ import event.impl.*;
 
 import item.impl.*;
 import item.ifaces.*;
+import item.excepts.*;
 
 import prompt.Prompt;
 
@@ -29,11 +30,10 @@ public class LutaContraOCR
 	public static void main(String[] argv)
 	{
 		//constantes
-		final String loop_message = "Use:\n\t'mapa' [mover/aqui] para acoes no mapa;\n\t'listar' [itens/ataques] para listar alguma propriedade\n\t'info' [mapa/player/(item ITEM)/(ataque ATAQUE)] para informacao sobre alguma coisa";
-		final String[] def_opts = {"aqui","listar","info"};
+		final String loop_message = "Use:\n 'mapa' [mover/aqui] para acoes no mapa;\n 'player' [use ITEMCONSUMIVEL] para acoes no player\n 'info' [mapa/player/(item ITEM)] para informacao sobre os itens acima";
+		final String[] def_opts = {"mapa","info","player"};
 		final String[] map_opts = {"mover","aqui"};
-		final String[] info_opts = {"mapa","player","item","ataque"};
-		final String[] list_opts = {"itens","ataques"};
+		final String[] info_opts = {"mapa","player","item"};
 		final String[] positives = {"sim","s","yes","y","yep"};
 
 		//variaveis de leitura de console
@@ -42,7 +42,10 @@ public class LutaContraOCR
 		Scanner line;
 	
 		//variaveis do player
-		Player player;
+		Player player = null;
+		final String[] def_attacks = {"Pergunta Dificil","Resposta Enrolada"};
+		final String[] def_consumables = {"Vodka Orloff"};
+		final String[] def_equips = {"Colinha de bolso"};
 
 		//INICIO DO JOGO
 		System.out.println(welcome_message);
@@ -65,9 +68,12 @@ public class LutaContraOCR
 
 		try
 		{
-			player = PlayerMaker.getPlayer(type,name);
+			PlayerBuilder builder = new PlayerBuilder(name,type,def_attacks,def_equips,def_consumables);
+			PlayerBuilderDirector director = new PlayerBuilderDirector();
+			director.construct(builder);
+			player = builder.getPlayer();
 		}
-		catch(UnknownPlayerTypeException e)
+		catch(UnknownPlayerTypeException | NoItemFoundException | IOException e)
 		{
 			System.out.println("ERRO: " + e.getMessage());
 			System.exit(1);
@@ -78,40 +84,82 @@ public class LutaContraOCR
 			
 		while(true)
 		{
-			ans = prompt.queryAnswer(loop_message);
+			ans = prompt.queryAnswer("\n" + loop_message);
 			String[] operations;
 			line = new Scanner(ans);
 	
 			try
 			{
 				ans = line.next();
-
 				switch(ans)
 				{
 					case "mapa":
-						operations = map_opts;
 						ans = line.next();
-						if(!prompt.validAnswer(ans,operations))
+						switch(ans)
 						{
-							System.out.println("Opcao invalida para mapa! Tente de novo");
-							break;
+							case "aqui":
+								break;
+							case "mover":
+								break;
+							default:
+								System.out.println("Opcao invalida para mapa! Tente de novo");
+								break;
 						}
-						System.out.println("tomando acao com 'mapa " + ans + "' ...");
 						break;
 
 					case "info":
-						operations = info_opts;
 						ans = line.next();
-						if(!prompt.validAnswer(ans,operations))
+						switch(ans)
 						{
-							System.out.println("Opcao invalida para listagem! Tente de novo");
-							break;
+							case "mapa":
+								System.out.println("Use mover para mover, aqui para ver onde esta no mapa");
+								break;
+							case "player":
+								player.describe();
+								break;
+							case "item":
+								ans = line.nextLine().trim();
+								try
+								{
+									Item item = (Item)player.getItem(ans);
+									item.describe();
+								}
+								catch(NoItemFoundException e)
+								{
+									System.out.println("Nao ha o item '" + ans + "' no seu inventorio!");
+									break;
+								}
+								break;
+							default:
+								System.out.println("Opcao invalida para info! Tente de novo");
+								break;
 						}
-						System.out.println("tomando acao com 'info " + ans + "' ...");
+						break;
+					
+					case "player":
+						ans = line.next();
+						switch(ans)
+						{
+							case "use":
+								ans = line.nextLine().trim();
+								try
+								{
+									player.useItem(ans);
+									System.out.println("Item '" + ans + "' usado com sucesso!");
+								}		
+								catch(NoItemFoundException e)
+								{
+									System.out.println("Item '" + ans + "' nao encontrado em seu inventorio!");
+								}
+								break;
+							default:
+								System.out.println("Opcao invalida para player! Tente de novo");
+								break;
+						}
 						break;
 
 					default:
-						System.out.println("operacao: " + ans);
+						System.out.println("operacao invalida: " + ans);
 				}
 			}
 			catch(NoSuchElementException e)

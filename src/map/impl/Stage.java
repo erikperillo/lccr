@@ -39,4 +39,21 @@ public class Stage
 	{
 		return this.name;
 	}
+
+	public void describe()
+	{
+		System.out.println("Stage named '" + this.getName() + "':");
+
+		System.out.println("NPCs:");
+		for(Player player: this.npcs)
+			System.out.println("\t" + player.getName());	
+
+		System.out.println("Items:");
+		for(Item item: this.items)
+			System.out.println("\t" + item.getName());	
+
+		System.out.println("Events:");
+		for(IEvent event: this.events)
+			System.out.println("\t" + event.getName());	
+	}
 }

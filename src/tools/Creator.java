@@ -6,12 +6,14 @@ import java.util.Scanner;
 import db.impl.DataBase;
 import java.io.*;
 import java.lang.*;
+import player.impl.*;
+import player.ifaces.*;
 
 class Creator
 {
 	public static void main(String[] argv) throws Exception, FileNotFoundException
 	{
-		String[] options = {"attack","equip","consumable","quiz"};
+		String[] options = {"player","attack","equip","consumable","quiz"};
 
 		if(argv.length < 1)
 		{
@@ -176,6 +178,62 @@ class Creator
 			}
 
 			System.out.println("object succesfully saved to '" + db.getRoot() + "/" + argv[0] + "_" + name + ".ser'");
+		}
+		else if(argv[0].equalsIgnoreCase("player"))
+		{
+			
+			String name, type;
+			String[] equip_names, consumable_names, attack_names;
+			Player player;
+			PlayerBuilderDirector director = new PlayerBuilderDirector();
+			PlayerBuilder builder;
+			int n;
+				
+			if(argv.length < 2) System.out.print("name of player: ");
+			name = scanner.nextLine();
+
+			if(argv.length < 2) System.out.print("type of player: ");
+			type = scanner.nextLine();
+
+			if(argv.length < 2) System.out.print("how many equips? ");
+			n = Integer.parseInt(scanner.nextLine());
+			
+			equip_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("item " + (i+1) + " name: ");
+				equip_names[i] = scanner.nextLine();	
+			}
+
+			if(argv.length < 2) System.out.print("how many consumables? ");
+			n = Integer.parseInt(scanner.nextLine());
+			
+			consumable_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("item " + (i+1) + " name: ");
+				consumable_names[i] = scanner.nextLine();	
+			}
+
+			if(argv.length < 2) System.out.print("how many attacks? ");
+			n = Integer.parseInt(scanner.nextLine());
+			
+			attack_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("attack " + (i+1) + " name: ");
+				attack_names[i] = scanner.nextLine();	
+			}
+
+			builder = new PlayerBuilder(name,type,attack_names,equip_names,consumable_names);
+			director.construct(builder);
+			player = builder.getPlayer();
+
+			db.save(player,"player_" + player.getName() + ".ser");
+			System.out.println("player saved to '" + db.getRoot() + "/player_" + player.getName() + ".ser'");
 		}
 	}
 }

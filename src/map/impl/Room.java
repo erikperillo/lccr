@@ -6,19 +6,18 @@ import item.impl.*;
 
 public class Room extends Stage
 {
-	public static void main(String[] argv)
-	{
-		Room room = new Room(1,null,null,null);
-		room.draw(true,false);
-		room.draw(false,false);
-		room.draw(false,true);
-	}
-
 	private boolean random_event_visited = false;
+	private int number;
 
 	public Room(int number, Player[] npcs, IEvent[] events, Item[] items)
 	{
 		super("P" + Integer.toString(number % 10),npcs,events,items);
+		this.setNumber(number);
+	}
+
+	public void setNumber(int number)
+	{
+		this.number = number % 10;
 	}
 
 	void setVisited(boolean visited)
@@ -44,4 +43,5 @@ public class Room extends Stage
 
 		System.out.print(room);
 	}
+		
 }
