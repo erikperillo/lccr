@@ -8,7 +8,7 @@ import player.ifaces.IObserver;
 public class Map implements IObserver
 {
 	private final static int N_ROOMS_FLOOR = 3;
-	private Stage[] rooms;
+	private Room[] rooms;
 	private int player_location = 0;
 	
 	public Map(Room[] rooms)
@@ -33,8 +33,7 @@ public class Map implements IObserver
 		if(floor*N_ROOMS_FLOOR + N_ROOMS_FLOOR > this.rooms.length)
 			return;
 
-		this.rooms[floor*N_ROOMS_FLOOR + N_ROOMS_FLOOR - 1].draw(true,false);
-		this.rooms[floor*N_ROOMS_FLOOR + N_ROOMS_FLOOR - 2].draw(true,false);
-		this.rooms[floor*N_ROOMS_FLOOR + N_ROOMS_FLOOR - 3].draw(true,false);
+		for(int i=N_ROOMS_FLOOR-1; i>=0; i--)
+			this.rooms[floor*N_ROOMS_FLOOR + i].draw(i==N_ROOMS_FLOOR-1,floor*N_ROOMS_FLOOR + i == this.player_location);
 	}
 }

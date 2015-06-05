@@ -1,19 +1,20 @@
 package tools;
 
-import event.impl.*;
-import item.impl.*;
 import java.util.Scanner;
 import db.impl.DataBase;
+import event.impl.*;
+import item.impl.*;
 import java.io.*;
 import java.lang.*;
 import player.impl.*;
 import player.ifaces.*;
+import map.impl.*;
 
 class Creator
 {
 	public static void main(String[] argv) throws Exception, FileNotFoundException
 	{
-		String[] options = {"player","attack","equip","consumable","quiz"};
+		String[] options = {"player","attack","equip","consumable","quiz","room"};
 
 		if(argv.length < 1)
 		{
@@ -234,6 +235,57 @@ class Creator
 
 			db.save(player,"player_" + player.getName() + ".ser");
 			System.out.println("player saved to '" + db.getRoot() + "/player_" + player.getName() + ".ser'");
+		}
+		else if(argv[0].equalsIgnoreCase("room"))
+		{	
+			String[] players_names;
+			String[] items_names;
+			String[] events_names;
+			Room room = null;
+			int number = 0, n;
+
+			if(argv.length < 2) System.out.print("room number: ");
+			number = Integer.parseInt(scanner.nextLine());
+
+			if(argv.length < 2) System.out.print("how many players? ");
+			n = Integer.parseInt(scanner.nextLine());
+			
+			players_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("player " + (i+1) + " name: ");
+				players_names[i] = scanner.nextLine();	
+
+			}
+
+			if(argv.length < 2) System.out.print("how many items? ");
+			n = Integer.parseInt(scanner.nextLine());
+			
+			items_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("item " + (i+1) + " name: ");
+				items_names[i] = scanner.nextLine();	
+			}
+
+			if(argv.length < 2) System.out.print("how many events? ");
+			n = Integer.parseInt(scanner.nextLine());
+			
+			events_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("event " + (i+1) + " name: ");
+				events_names[i] = scanner.nextLine();	
+			}
+
+			room = RoomFactory.getRoom(number,players_names,events_names,items_names);
+
+			db.save(room,"room_" + "P" +  Integer.toString(number)+ ".ser");
+			System.out.println("room saved to '" + db.getRoot() + "/room_" + "P" + Integer.toString(number) + ".ser'");
+
 		}
 	}
 }

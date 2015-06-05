@@ -4,8 +4,9 @@ import java.util.*;
 import player.impl.*;
 import event.ifaces.*;
 import item.impl.*;
+import java.io.*;
 
-public class Stage
+public class Stage implements Serializable
 {
 	private Player[] npcs;
 	private IEvent[] events;

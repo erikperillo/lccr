@@ -13,7 +13,7 @@ public class MapFactory
 		try
 		{
 			for(int i=0; i<rooms.length; i++)
-				rooms[i] = (Room)db.load("room_" + rooms_names + ".ser");
+				rooms[i] = (Room)db.load("room_" + rooms_names[i] + ".ser");
 		}
 		catch(IOException | ClassNotFoundException e)
 		{
