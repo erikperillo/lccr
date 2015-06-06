@@ -1,0 +1,17 @@
+Quiz do calculo 1
+3
+Toda funcao continua e tambem diferenciavel?
+nao
+sim
+talvez
+depende 
+Qual regra se usa quando a derivada da 0/0?
+L'ospital
+nenhuma
+Teorema fundamental do calculo
+Teorema do limite
+A integral indefinida de sec(x) e quanto?
+ln( abs( sec(x) + tg(x) ) ) + K
+ln( cosec(x) * tg(x) ) + K
+sec(x) + cotg(x) + K
+ln(tg(x)) + 1/sec(x) + K

@@ -1,11 +1,12 @@
-2
 3
+4
 Random Player 3
 Random Player 4
+Random Player 5
 Random Player 6
 3
-Cafe Coado
+Caneta Dourada
 Vodka Orloff
 Ingresso de Baladinha
 1
-Domingao do Faustao
+Quiz do calculo 1

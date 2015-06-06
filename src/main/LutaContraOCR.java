@@ -14,6 +14,9 @@ import item.impl.*;
 import item.ifaces.*;
 import item.excepts.*;
 
+import map.impl.*;
+import map.excepts.*;
+
 import prompt.Prompt;
 
 public class LutaContraOCR
@@ -31,9 +34,6 @@ public class LutaContraOCR
 	{
 		//constantes
 		final String loop_message = "Use:\n 'mapa' [mover/aqui] para acoes no mapa;\n 'player' [use ITEMCONSUMIVEL] para acoes no player\n 'info' [mapa/player/(item ITEM)] para informacao sobre os itens acima";
-		final String[] def_opts = {"mapa","info","player"};
-		final String[] map_opts = {"mover","aqui"};
-		final String[] info_opts = {"mapa","player","item"};
 		final String[] positives = {"sim","s","yes","y","yep"};
 
 		//variaveis de leitura de console
@@ -47,9 +47,12 @@ public class LutaContraOCR
 		final String[] def_consumables = {"Vodka Orloff"};
 		final String[] def_equips = {"Colinha de bolso"};
 
+		//variaveis do mapa
+		final String[] rooms_names = {"1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4"};
+		map.impl.Map map; //solving ambiguity
+
 		//INICIO DO JOGO
 		System.out.println(welcome_message);
-
 		System.out.println("\nE importante decidir desde o inicio o tipo de aluno que voce vai ser. Os existentes sao:");
 		System.out.println(nerd_info);
 		System.out.println(varzea_info);
@@ -79,6 +82,9 @@ public class LutaContraOCR
 			System.exit(1);
 		}
 
+		//loading map and giving it names
+		map = MapFactory.getMap(rooms_names);
+
 		//main loop
 		System.out.println();
 			
@@ -98,8 +104,24 @@ public class LutaContraOCR
 						switch(ans)
 						{
 							case "aqui":
+								map.draw();
 								break;
 							case "mover":
+								ans = line.next();
+								try
+								{
+									if(!map.getRoomByName(ans).playerAllowed())
+										System.out.println("Voce ainda nao pode se mover para essa localizacao!");
+									else
+										{
+										System.out.println(map.getRoomByName(ans).getNumber());
+										player.move(map.getRoomByName(ans).getNumber());
+										}
+								}
+								catch(RoomNotFoundException e)
+								{
+									System.out.println("Este local ainda nao exite!");
+								}
 								break;
 							default:
 								System.out.println("Opcao invalida para mapa! Tente de novo");

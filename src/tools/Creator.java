@@ -283,8 +283,8 @@ class Creator
 
 			room = RoomFactory.getRoom(number,players_names,events_names,items_names);
 
-			db.save(room,"room_" + "P" +  Integer.toString(number)+ ".ser");
-			System.out.println("room saved to '" + db.getRoot() + "/room_" + "P" + Integer.toString(number) + ".ser'");
+			db.save(room,"room_" +  Integer.toString(number)+ ".ser");
+			System.out.println("room saved to '" + db.getRoot() + "/room_" + Integer.toString(number) + ".ser'");
 
 		}
 	}

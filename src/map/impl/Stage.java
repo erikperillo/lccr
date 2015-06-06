@@ -41,6 +41,11 @@ public class Stage implements Serializable
 		return this.name;
 	}
 
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
 	public void describe()
 	{
 		System.out.println("Stage named '" + this.getName() + "':");
