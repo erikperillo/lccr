@@ -11,9 +11,9 @@ import item.excepts.*;
 
 public class RoomFactory
 {
-	public static Room getRoom(int number, String[] players_names, String[] events_names, String[] items_names)
+	public static Room getRoom(int number, String[] players_names, String[] events_names, String[] items_names, String message)
 	{
-		Player[] players = new Player[players_names.length];
+		NPC[] npcs = new NPC[players_names.length];
 		Item[] items = new Item[items_names.length];
 		IEvent[] events = new Quiz[events_names.length];
 		IItemFactory item_fact;
@@ -22,7 +22,7 @@ public class RoomFactory
 		try
 		{
 			for(int i=0; i<players_names.length; i++)
-				players[i] = (Player)db.load("player_" + players_names[i] + ".ser");
+				npcs[i] = (NPC)db.load("npc_" + players_names[i] + ".ser");
 		}
 		catch(IOException | ClassNotFoundException e)
 		{
@@ -63,6 +63,6 @@ public class RoomFactory
 			System.exit(1);
 		}
 
-		return new Room(number,players,events,items);
+		return new Room(number,npcs,events,items,message);
 	}
 }

@@ -33,7 +33,7 @@ public class LutaContraOCR
 	public static void main(String[] argv)
 	{
 		//constantes
-		final String loop_message = "Use:\n 'mapa' [mover/aqui] para acoes no mapa;\n 'player' [use ITEMCONSUMIVEL] para acoes no player\n 'info' [mapa/player/(item ITEM)] para informacao sobre os itens acima";
+		final String loop_message = "Use:\n 'mapa' para ver onde esta;\n 'player' [usar ITEMCONSUMIVEL | mover NOME_SALA] para acoes no player\n 'info' [mapa | player | (item ITEM) | sala] para informacao sobre os itens acima";
 		final String[] positives = {"sim","s","yes","y","yep"};
 
 		//variaveis de leitura de console
@@ -48,7 +48,7 @@ public class LutaContraOCR
 		final String[] def_equips = {"Colinha de bolso"};
 
 		//variaveis do mapa
-		final String[] rooms_names = {"1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4"};
+		final String[] rooms_names = {"1","2","3","1","2","3","1","2","3",};
 		map.impl.Map map; //solving ambiguity
 
 		//INICIO DO JOGO
@@ -84,6 +84,8 @@ public class LutaContraOCR
 
 		//loading map and giving it names
 		map = MapFactory.getMap(rooms_names);
+		//subscribing map to player
+		player.subscribe(map);
 
 		//main loop
 		System.out.println();
@@ -100,33 +102,8 @@ public class LutaContraOCR
 				switch(ans)
 				{
 					case "mapa":
-						ans = line.next();
-						switch(ans)
-						{
-							case "aqui":
-								map.draw();
-								break;
-							case "mover":
-								ans = line.next();
-								try
-								{
-									if(!map.getRoomByName(ans).playerAllowed())
-										System.out.println("Voce ainda nao pode se mover para essa localizacao!");
-									else
-										{
-										System.out.println(map.getRoomByName(ans).getNumber());
-										player.move(map.getRoomByName(ans).getNumber());
-										}
-								}
-								catch(RoomNotFoundException e)
-								{
-									System.out.println("Este local ainda nao exite!");
-								}
-								break;
-							default:
-								System.out.println("Opcao invalida para mapa! Tente de novo");
-								break;
-						}
+						System.out.println("Sua localizacao:");
+						map.draw();
 						break;
 
 					case "info":
@@ -134,7 +111,7 @@ public class LutaContraOCR
 						switch(ans)
 						{
 							case "mapa":
-								System.out.println("Use mover para mover, aqui para ver onde esta no mapa");
+								System.out.println("Use 'mover' para mover, 'onde' para ver onde esta no mapa");
 								break;
 							case "player":
 								player.describe();
@@ -152,6 +129,9 @@ public class LutaContraOCR
 									break;
 								}
 								break;
+							case "sala":
+								map.getPlayerRoom().describe();
+								break;
 							default:
 								System.out.println("Opcao invalida para info! Tente de novo");
 								break;
@@ -162,7 +142,7 @@ public class LutaContraOCR
 						ans = line.next();
 						switch(ans)
 						{
-							case "use":
+							case "usar":
 								ans = line.nextLine().trim();
 								try
 								{
@@ -172,6 +152,23 @@ public class LutaContraOCR
 								catch(NoItemFoundException e)
 								{
 									System.out.println("Item '" + ans + "' nao encontrado em seu inventorio!");
+								}
+								break;
+							case "mover":
+								ans = line.next();
+								try
+								{
+									if(!map.getRoomByName(ans).playerAllowed())
+										System.out.println("Voce ainda nao pode se mover para essa localizacao!");
+									else
+									{
+										player.move(map.getRoomByName(ans).getNumber());
+										System.out.println("Player '" + player.getName() + "' se moveu para a sala '" + ans + "'");
+									}
+								}
+								catch(RoomNotFoundException e)
+								{
+									System.out.println("Este local ainda nao exite!");
 								}
 								break;
 							default:

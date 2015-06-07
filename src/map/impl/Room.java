@@ -8,20 +8,14 @@ public class Room extends Stage
 {
 	private boolean random_event_visited = false;
 	private boolean player_allowed = false;
+	private String message;
 	private int number;
 
-	public static void main(String[] argv)
-	{
-		Room room = new Room(3,null,null,null);
-		room.draw(true,false);
-		room.draw(false,true);
-		room.draw(false,false);
-	}
-
-	public Room(int number, Player[] npcs, IEvent[] events, Item[] items)
+	public Room(int number, NPC[] npcs, IEvent[] events, Item[] items, String message)
 	{
 		super(Integer.toString(number),npcs,events,items);
 		this.setNumber(number);
+		this.message = message;
 	}
 
 	public void setNumber(int number)
@@ -66,6 +60,20 @@ public class Room extends Stage
 		bottom_room + "\n";
 
 		System.out.print(room);
+	}
+
+	public void describe()
+	{
+		System.out.println("Room '" + this.getName() + "'");
+		System.out.println("NPCS:");
+		for(NPC npc: this.getNPCs())
+			System.out.println("\t-" + npc.getName() + "(type: " + npc.getType() + ")");
+		System.out.println("Items:");
+		for(Item item: this.getItems())
+			System.out.println("\t-" + item.getName() + "(type: " + item.getType() + ")");
+		System.out.println("Events:");
+		for(IEvent event: this.getEvents())
+			System.out.println("\t-" + event.getName());
 	}
 		
 }

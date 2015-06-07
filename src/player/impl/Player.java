@@ -35,6 +35,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		this.name = name;
 		this.inventory = new ArrayList<Item>();
 		this.attacks = new ArrayList<String>();
+		this.people_that_want_my_position = new ArrayList<IObserver>();
 	}
 
 	//getters
@@ -143,7 +144,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		return false;
 	}
 
-	private Integer[] getAttackFromDB(String attack_name) throws AttackNotFoundException, IOException
+	protected Integer[] getAttackFromDB(String attack_name) throws AttackNotFoundException, IOException
 	{
 		DataBase db = DataBase.getInstance();
 		Integer[] weights;

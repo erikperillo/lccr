@@ -8,12 +8,12 @@ import java.io.*;
 
 public class Stage implements Serializable
 {
-	private Player[] npcs;
+	private NPC[] npcs;
 	private IEvent[] events;
 	private Item[] items;
 	private String name;
 
-	public Stage(String name, Player[] npcs, IEvent[] events, Item[] items)
+	public Stage(String name, NPC[] npcs, IEvent[] events, Item[] items)
 	{
 		this.npcs = npcs;
 		this.events = events;
@@ -21,7 +21,7 @@ public class Stage implements Serializable
 		this.name = name;
 	}
 
-	public Player[] getNPCs()
+	public NPC[] getNPCs()
 	{
 		return this.npcs;
 	}

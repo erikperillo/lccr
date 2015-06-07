@@ -14,7 +14,7 @@ class Creator
 {
 	public static void main(String[] argv) throws Exception, FileNotFoundException
 	{
-		String[] options = {"player","attack","equip","consumable","quiz","room"};
+		String[] options = {"npc","attack","equip","consumable","quiz","room"};
 
 		if(argv.length < 1)
 		{
@@ -180,21 +180,34 @@ class Creator
 
 			System.out.println("object succesfully saved to '" + db.getRoot() + "/" + argv[0] + "_" + name + ".ser'");
 		}
-		else if(argv[0].equalsIgnoreCase("player"))
+		else if(argv[0].equalsIgnoreCase("npc"))
 		{
 			
-			String name, type;
-			String[] equip_names, consumable_names, attack_names;
-			Player player;
+			String name, type, message; 
+			String[] equip_names, consumable_names, attack_names; 
+			NPC npc;
 			PlayerBuilderDirector director = new PlayerBuilderDirector();
-			PlayerBuilder builder;
+			NPCBuilder builder;
 			int n;
+			float cr,migue,knowledge;
 				
-			if(argv.length < 2) System.out.print("name of player: ");
+			if(argv.length < 2) System.out.print("name of npc: ");
 			name = scanner.nextLine();
 
-			if(argv.length < 2) System.out.print("type of player: ");
+			if(argv.length < 2) System.out.print("type of npc (evil/normal): ");
 			type = scanner.nextLine();
+
+			if(argv.length < 2) System.out.print("message of npc: ");
+			message = scanner.nextLine();
+
+			if(argv.length < 2) System.out.print("cr: ");
+			cr = Float.parseFloat(scanner.nextLine());
+
+			if(argv.length < 2) System.out.print("knowledge: ");
+			knowledge = Float.parseFloat(scanner.nextLine());
+
+			if(argv.length < 2) System.out.print("migue: ");
+			migue = Float.parseFloat(scanner.nextLine());
 
 			if(argv.length < 2) System.out.print("how many equips? ");
 			n = Integer.parseInt(scanner.nextLine());
@@ -229,27 +242,31 @@ class Creator
 				attack_names[i] = scanner.nextLine();	
 			}
 
-			builder = new PlayerBuilder(name,type,attack_names,equip_names,consumable_names);
+			builder = new NPCBuilder(name,type,message,attack_names,equip_names,consumable_names,cr,knowledge,migue);
 			director.construct(builder);
-			player = builder.getPlayer();
+			npc = (NPC)builder.getPlayer();
 
-			db.save(player,"player_" + player.getName() + ".ser");
-			System.out.println("player saved to '" + db.getRoot() + "/player_" + player.getName() + ".ser'");
+			db.save(npc,"npc_" + npc.getName() + ".ser");
+			System.out.println("npc saved to '" + db.getRoot() + "/npc_" + npc.getName() + ".ser'");
 		}
 		else if(argv[0].equalsIgnoreCase("room"))
 		{	
 			String[] players_names;
 			String[] items_names;
 			String[] events_names;
+			String message;
 			Room room = null;
 			int number = 0, n;
 
 			if(argv.length < 2) System.out.print("room number: ");
 			number = Integer.parseInt(scanner.nextLine());
 
+			if(argv.length < 2) System.out.print("room message: ");
+			message = scanner.nextLine();
+			
 			if(argv.length < 2) System.out.print("how many players? ");
 			n = Integer.parseInt(scanner.nextLine());
-			
+
 			players_names = new String[n];
 
 			for(int i=0; i<n; i++)
@@ -281,7 +298,7 @@ class Creator
 				events_names[i] = scanner.nextLine();	
 			}
 
-			room = RoomFactory.getRoom(number,players_names,events_names,items_names);
+			room = RoomFactory.getRoom(number,players_names,events_names,items_names,message);
 
 			db.save(room,"room_" +  Integer.toString(number)+ ".ser");
 			System.out.println("room saved to '" + db.getRoot() + "/room_" + Integer.toString(number) + ".ser'");
