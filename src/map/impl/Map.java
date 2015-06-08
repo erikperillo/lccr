@@ -22,6 +22,11 @@ public class Map implements IObserver
 		this.player_location = location;
 	}
 
+	public boolean end()
+	{
+		return this.player_location >= this.rooms.length;
+	}
+
 	public Stage getPlayerRoom()
 	{
 		return this.rooms[this.player_location];

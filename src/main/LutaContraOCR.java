@@ -33,16 +33,16 @@ public class LutaContraOCR
 	public static void main(String[] argv)
 	{
 		//constantes
-		final String loop_message = "Use:\n 'mapa' para ver onde esta;\n 'player' [usar ITEMCONSUMIVEL | mover NOME_SALA] para acoes no player\n 'info' [mapa | player | (item ITEM) | sala] para informacao sobre os itens acima";
-		final String[] positives = {"sim","s","yes","y","yep"};
+		final String loop_message = "Use:\n 'mapa' para ver onde esta;\n 'player' [usar ITEMCONSUMIVEL | mover NOME_SALA] para acoes no player\n 'sala' [ info [NOME_NPC | NOME_ITEM] [lutar|conversar] [NOME_NPC] ]\n 'info' [mapa | player | (item ITEM) | sala] para informacao sobre os itens acima"; 
+		final String[] positives = {"sim","s","yes","y","yep"}; 
 
-		//variaveis de leitura de console
-		Prompt prompt = new Prompt(">>> ");
-		String ans, name, type, operand;
-		Scanner line;
-	
-		//variaveis do player
-		Player player = null;
+		//variaveis de leitura de console 
+		Prompt prompt = new Prompt(">>> "); 
+		String ans, name, type, operand; 
+		Scanner line; 
+
+		//variaveis do player 
+		Player player = null; 
 		final String[] def_attacks = {"Pergunta Dificil","Resposta Enrolada"};
 		final String[] def_consumables = {"Vodka Orloff"};
 		final String[] def_equips = {"Colinha de bolso"};
@@ -82,7 +82,7 @@ public class LutaContraOCR
 			System.exit(1);
 		}
 
-		//loading map and giving it names
+		//loading map and giving it names 
 		map = MapFactory.getMap(rooms_names);
 		//subscribing map to player
 		player.subscribe(map);
@@ -101,6 +101,22 @@ public class LutaContraOCR
 				ans = line.next();
 				switch(ans)
 				{
+					case "sala":
+						ans = line.next();
+						switch(ans)
+						{
+							case "info":
+								break;
+							case "lutar":
+								break;
+							case "conversar":
+								break;
+							default:
+								System.out.println("Operador invalido para 'sala'! Tente de novo");
+								break;
+						}
+						break;
+
 					case "mapa":
 						System.out.println("Sua localizacao:");
 						map.draw();

@@ -28,6 +28,11 @@ public class Room extends Stage
 		return this.number;
 	}
 
+	public String getMessage()
+	{
+		return this.message;
+	}
+
 	void setVisited(boolean visited)
 	{
 		this.random_event_visited = visited;
@@ -65,12 +70,13 @@ public class Room extends Stage
 	public void describe()
 	{
 		System.out.println("Room '" + this.getName() + "'");
+		System.out.println(this.getMessage());
 		System.out.println("NPCS:");
 		for(NPC npc: this.getNPCs())
-			System.out.println("\t-" + npc.getName() + "(type: " + npc.getType() + ")");
+			System.out.println("\t-" + npc.getName() + " (type: " + npc.getType() + ")");
 		System.out.println("Items:");
 		for(Item item: this.getItems())
-			System.out.println("\t-" + item.getName() + "(type: " + item.getType() + ")");
+			System.out.println("\t-" + item.getName() + " (type: " + item.getType() + ")");
 		System.out.println("Events:");
 		for(IEvent event: this.getEvents())
 			System.out.println("\t-" + event.getName());
