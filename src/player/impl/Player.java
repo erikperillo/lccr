@@ -63,7 +63,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 	{
 		return this.name;
 	}
-	
+/*	
 	public ArrayList<Item> getInventory()
 	{
 		return this.inventory;
@@ -73,7 +73,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 	{
 		return this.attacks;
 	}
-
+*/
 	//setters
 	public void setCR(float CR)
 	{
@@ -179,7 +179,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		{
 			try
 			{
-				weights = getAttackFromDB(attack_name);
+				weights = getAttackFromDB("attack_" + attack_name + ".ser");
 			}
 			catch(IOException | AttackNotFoundException e)
 			{
@@ -198,12 +198,12 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		int defense_additional = 0;
 
 		for(Item item: this.inventory)
-			if(!item.getType().equalsIgnoreCase("arma") && !item.getType().equalsIgnoreCase("weapon"))
+			if(item instanceof Equip)
 				defense_additional += ((Equip)item).equipped()?((Equip)item).getPower():0;
 		
 		try
 		{
-			weights = getAttackFromDB(attack_name);
+			weights = getAttackFromDB("attack_" + attack_name + ".ser");
 		}
 		catch(AttackNotFoundException | IOException e)
 		{

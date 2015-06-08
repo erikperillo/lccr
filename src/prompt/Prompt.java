@@ -26,12 +26,23 @@
 
 		System.out.print(message + (prompt?("\n" + this.prompt_symbol):""));
 
-		return keyboard.nextLine();
+		return keyboard.nextLine().trim();
 	}
 
 	public String queryAnswer(String message)
 	{
 		return queryAnswer(message,true);
+	}
+
+	public void clear(int rows)
+	{
+		for(int i=0; i<rows; i++)
+			System.out.println("\b");
+	}
+
+	public void clear()
+	{
+		this.clear(666);
 	}
 
 	public String queryValidAnswer(String message, String[] options)

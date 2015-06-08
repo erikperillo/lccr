@@ -1,12 +1,19 @@
 package event.impl;
 
 import event.ifaces.IEvent;
+
 import player.impl.*;
-import java.util.Scanner;
+
 import item.impl.*;
 import item.excepts.*;
+
 import player.excepts.*;
-import java.io.IOException;
+
+import prompt.*;
+
+import java.io.*;
+import java.lang.*;
+import java.util.*;
 
 public class Fight implements IEvent
 {
@@ -41,15 +48,17 @@ public class Fight implements IEvent
 	public void routine()
 	{
 		Player attacker, reactor;
-		Scanner keyboard = new Scanner(System.in);
-		String ans;
-		String[] opts = {"l","i","u","p"};
+		Scanner keyboard = new Scanner(System.in), line = null;
+		String ans, selected_attack;
+		String[] opts = {"listar","info","usar","prox"};
+		Prompt prompt = new Prompt(">>> ");
 		Item item = null;
-		Player[] convenience = {this.player,this.enemy};
+		Random random = new Random();
 		float attack_val = 0, defense_val = 0;
+		boolean atk_found;
 	
 		Fight.counter++;
-		System.out.println("LUTA ENTRE '" + this.player + "' (player 1) E '" + this.enemy + "' (player 2)");
+		System.out.println("LUTA ENTRE '" + this.player.getName() + "' (player 1) E '" + this.enemy.getName() + "' (player 2)\n");
 
 		if(counter%2 == 0)
 			attacker = player;
@@ -72,7 +81,7 @@ public class Fight implements IEvent
 				break;
 			}
 			
-			System.out.println("ROUND " + (i+1));
+			System.out.println("ROUND " + (i+1) + "\n");
 
 			for(String item_name: this.player.getItemsNames())
 			{
@@ -84,130 +93,136 @@ public class Fight implements IEvent
 				}
 				catch(NoItemFoundException e)
 				{
-					System.out.println(e.getMessage());
+					System.out.println("ERROR:" + e.getMessage());
 					System.exit(1);
 				}
 			} 
 
+			selected_attack = "nenhum";
+			atk_found = false;
+
+			System.out.println("\nE a vez do '" + attacker.getName() + "' atacar!\n");
+
 			while(true)
 			{
-				System.out.println("Use 'l' para listar seus ataques e itens, 'i' para informacao sobre seu CR, conhecimento e migue, 'u' para equipar/usar algum item ou 'p' para prosseguir.");
+				ans = prompt.queryAnswer("Use:\n 'info' [player | item [NOME_ITEM]] para informacao sobre seu CR, conhecimento, migue e listar seus ataques e items ou sobre um item\n 'usar' [NOME_ITEM] para equipar/usar algum item" + ((attacker==this.player)?"\n 'ataque' [NOME_ATAQUE] para selecionar o ataque a ser usado":"") + "\n 'prox' para prosseguir.");
+				line = new Scanner(ans);
+				//prompt.clear();
+				System.out.println();
 
-				while(true)
+				try
 				{
-					System.out.print(">>> ");
-					ans = keyboard.nextLine();
-					if(!validAnswer(ans,opts))
-						System.out.println("Resposta invalida! Tente de novo.");
-					else
-						break;
-				}
+					ans = line.next();
 
-				if(ans.equalsIgnoreCase("l"))
-				{
-					System.out.println("Ataques:");
-					for(String atk: this.player.getAttacksNames())
-						System.out.println("\t-" + atk);
-
-					System.out.println("Itens:");
-					for(String it: this.player.getItemsNames())
-						System.out.println("\t-" + it);
-				}
-				else if(ans.equalsIgnoreCase("i"))
-					for(String lvl: this.player.getLabeledLevels())
-						System.out.println("\t-" + lvl);
-				else 
-				{
-					if(ans.equalsIgnoreCase("u"))
+					if(ans.equalsIgnoreCase("info"))
 					{
-						System.out.println("Itens disponiveis:");
-						for(String it: this.player.getItemsNames())
-							System.out.println("\t-" + it);
+						ans = line.next();
 
-						System.out.println("\tDigite o nome do item:");
+						if(ans.equalsIgnoreCase("player"))
+							this.player.describe();
 
-						while(true)
+						else if(ans.equalsIgnoreCase("item"))
 						{
-							System.out.print("\t>>> ");
-							ans = keyboard.nextLine();
+							ans = line.nextLine().trim();
 							try
 							{
-								item = (Item)this.player.getItem(ans);
-								break;
+								player.getItem(ans).describe();
 							}
 							catch(NoItemFoundException e)
 							{
-								System.out.println("Nao ha o item '" + ans + "' no inventorio! tente de novo");
+								System.out.println("Nao ha o item '" + ans + "' no seu inventario!");
 							}
 						}
+						if(attacker == this.player)
+							System.out.println("Ataque selecionado: '" + selected_attack + "'\n");
+					}
 
-						if(item instanceof Equip)
-						{							
-							((Equip)item).setEquipped(true);
-							System.out.println("Equipado item '" + item.getName());
-						}
-						else
+					else if(ans.equalsIgnoreCase("ataque") && attacker == this.player)
+					{
+						ans = line.nextLine().trim();
+					
+						for(String atk: player.getAttacksNames())
+							if(ans.equalsIgnoreCase(atk))
+							{
+								selected_attack = ans;
+								atk_found = true;
+								System.out.println("Ataque '" + ans + "' selecionado");
+								break;			
+							}
+						if(!atk_found)	
+							System.out.println("Ataque '" + ans + "' nao existe em sua gama de ataques!");
+					}
+
+					else if(ans.equalsIgnoreCase("usar"))
+					{
+						ans = line.nextLine().trim();
+						try
 						{
-							try
+							item = (Item)this.player.getItem(ans);
+
+							if(item instanceof Equip)
+							{							
+								((Equip)item).setEquipped(true);
+								System.out.println("Equipado item '" + item.getName() + "'");
+							}
+							else
 							{
 								this.player.useItem(ans);
 								System.out.println("Item '" + ans + "' usado");
 							}
-							catch(NoItemFoundException e)
-							{
-								System.out.println("wtf: " + e.getMessage());
-								System.exit(1);
-							}
-						}	
+						}
+						catch(NoItemFoundException e)
+						{
+							System.out.println("Nao ha o item '" + ans + "' no inventorio! tente de novo");
+						}
 					}
-					break;
-				}
 
-			}
-			
-			System.out.println("E a vez do '" + attacker.getName() + "' atacar!");
-			{
-				while(true)
-				{
-					if(attacker == this.player)
+					else if(ans.equalsIgnoreCase("prox"))
 					{
-						System.out.println("Escolha seu ataque dentre os disponiveis:");
-						for(String atk: this.player.getAttacksNames())
-							System.out.println("\t-" + atk);
-						System.out.println(">>> ");	
-						ans = keyboard.nextLine();
+						if(!atk_found && attacker == this.player)
+							System.out.println("Voce PRECISA selecionar um ataque para continuar na sua vez!");
+						else
+							break;
 					}
+
 					else
-						ans = attacker.getAttacks().get(0);
-
-					try
-					{
-						attack_val = attacker.attack(ans);
-						break;
-					}
-					catch(AttackNotFoundException e)
-					{
-						System.out.println("Esse ataque nao existe! Tente de novo, cara palida.");
-					}
-					catch(IOException e)
-					{
-						System.out.println(e.getMessage());
-					}
-				}	
+						System.out.println("Comando '" + ans + "' invalido!");
+				}
+				catch(NoSuchElementException e)
+				{
+					System.out.println("Comando invalido! tente de novo");
+				}
 			}
 			
-			System.out.println("'" + reactor.getName() + "' se defende como pode...");
+			if(attacker != this.player)
+				selected_attack = attacker.getAttacksNames()[random.nextInt(attacker.getAttacksNames().length)];
 			try
 			{
-				defense_val = reactor.react(ans);
+				attack_val = attacker.attack(selected_attack);
 			}
 			catch(AttackNotFoundException | IOException e)
 			{
-				System.out.println("ops: " + e.getMessage());
+				System.out.println("ERROR: " + e.getMessage());
+				System.exit(1);
+			}
+			
+			System.out.println("'" + attacker.getName() + "' usa o ataque '" + selected_attack + "' !");
+			System.out.println("'" + reactor.getName() + "' se defende como pode...");
+
+			try
+			{
+				defense_val = reactor.react(selected_attack);
+			}
+			catch(AttackNotFoundException | IOException e)
+			{
+				System.out.println("ERROR: " + e.getMessage());
+				System.exit(1);
 			}
 
 			System.out.println("valor de ataque: " + attack_val + " | valor de defesa: " + defense_val);
 			
+			attacker = reactor;
+			reactor = (attacker==this.player)?this.enemy:this.player;
 		}
 		return;
 	}
