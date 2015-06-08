@@ -1,7 +1,7 @@
 package event.impl;
 
 import event.ifaces.IEvent;
-import player.impl.Player;
+import player.impl.*;
 import java.util.Scanner;
 import item.impl.*;
 import item.excepts.*;
@@ -14,9 +14,9 @@ public class Fight implements IEvent
 	private String name;
 	private int rounds;
 	private Player player;
-	private Player enemy;
+	private NPC enemy;
 
-	public Fight(String name, Player player, Player enemy, int rounds)
+	public Fight(String name, Player player, NPC enemy, int rounds)
 	{
 		this.player = player;
 		this.enemy = enemy;
@@ -45,6 +45,7 @@ public class Fight implements IEvent
 		String ans;
 		String[] opts = {"l","i","u","p"};
 		Item item = null;
+		Player[] convenience = {this.player,this.enemy};
 		float attack_val = 0, defense_val = 0;
 	
 		Fight.counter++;
@@ -59,6 +60,18 @@ public class Fight implements IEvent
 
 		for(int i=0; i<this.rounds; i++)
 		{
+			if(this.player.getCR() <= 0)
+			{
+				System.out.println("Voce morreu!");
+				break;
+			}
+			if(this.enemy.getCR() <= 0)
+			{
+				System.out.println("Voce venceu!");
+				this.enemy.setActive(false);
+				break;
+			}
+			
 			System.out.println("ROUND " + (i+1));
 
 			for(String item_name: this.player.getItemsNames())

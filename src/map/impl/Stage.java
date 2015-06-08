@@ -1,10 +1,10 @@
-package map.impl;
+	package map.impl;
 
-import java.util.*;
-import player.impl.*;
-import event.ifaces.*;
-import item.impl.*;
-import java.io.*;
+	import java.util.*;
+	import player.impl.*;
+	import event.ifaces.*;
+	import item.impl.*;
+	import java.io.*;
 
 public class Stage implements Serializable
 {

@@ -92,6 +92,21 @@ public class LutaContraOCR
 			
 		while(true)
 		{
+			//checking game variables
+			
+			if(map.end())
+			{
+				System.out.println("voce chegou ao fim, fera");
+				System.exit(0);
+			}
+
+			if(player.getCR() <= 0)
+			{
+				System.out.println("voce morreu, sry");
+				System.exit(0);
+			}
+			
+			//game interaction
 			ans = prompt.queryAnswer("\n" + loop_message);
 			String[] operations;
 			line = new Scanner(ans);
@@ -103,13 +118,57 @@ public class LutaContraOCR
 				{
 					case "sala":
 						ans = line.next();
+						boolean found = false;
 						switch(ans)
 						{
 							case "info":
+								ans = line.next();
+								for(NPC npc: map.getPlayerRoom().getNPCs())
+									if(ans.equalsIgnoreCase(npc.getName()))
+									{
+										npc.describe();
+										found = true;	
+									}	
+								for(Item item: map.getPlayerRoom().getItems())
+									if(ans.equalsIgnoreCase(item.getName()))
+									{
+										item.describe();
+										found = true;	
+									}
+								if(!found)
+									System.out.println("Nao ha o personagem/item nomeado  '" + ans + "' na sala!");
 								break;
 							case "lutar":
+								ans = line.next();
+								for(NPC npc: map.getPlayerRoom().getNPCs())
+								{
+									if(ans.equalsIgnoreCase(npc.getName()))
+									{ 
+										found = true;
+										if(npc.getType().equalsIgnoreCase("evil"))
+										{
+											System.out.println("lutando com '" + npc.getName());
+											event = new Fight("Luta daota",player,npc);
+										}
+										else
+											System.out.println("voce nao pode lutar com este tiṕo de jogador!");
+									}
+									if(!found)
+										System.out.println("Personagem '" + ans + "' nao encontrado!");
+								}
 								break;
 							case "conversar":
+								ans = line.next();
+								for(NPC npc: map.getPlayerRoom().getNPCs())
+								{
+									if(ans.equalsIgnoreCase(npc.getName()))
+									{ 
+										found = true;
+										System.out.println(npc.getMessage());
+									}
+									if(!found)
+										System.out.println("Personagem '" + ans + "' nao encontrado!");
+								}
 								break;
 							default:
 								System.out.println("Operador invalido para 'sala'! Tente de novo");
