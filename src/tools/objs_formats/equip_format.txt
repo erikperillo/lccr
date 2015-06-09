@@ -1,0 +1,5 @@
+[nome] : String
+[descricao] : String
+[quantidade] : int 
+[poder] : int (e tanto o poder de ataque quanto o de defesa, nao tem limite, mas tentem manter entre 0 100)
+[equipado de inicio] : boolean

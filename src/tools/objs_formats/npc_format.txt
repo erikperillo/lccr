@@ -1,0 +1,12 @@
+[nome] : String
+[tipo] : String (normal ou evil)
+[message] : String
+[cr] : float (0 a 1)
+[conhecimento] : float (0 a 1)
+[migue] : float(0 a 1)
+[numero de equips] : int
+(coloca os n nomes dos equips, um por linha...)
+[numero de consumables] : int
+(coloca os n nomes dos consumables, um por linha...)
+[numero de ataques] : int
+(coloca os n nomes dos ataques, um por linha...)

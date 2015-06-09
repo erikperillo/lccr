@@ -1,0 +1,7 @@
+[nome] : String
+[descricao] : String
+[quantidade] : int
+[quanto sobe de cr] : float (0 a 1)
+[quanto sobe de conhecimento] : float (0 a 1)
+[quanto sobe de migue] : float (0 a 1)
+[duracao] : int (nao e usado por hora, mas coloquem ai um valor razoavel, vai que usamos)

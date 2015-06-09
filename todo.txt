@@ -1,0 +1,11 @@
+-escolher a codebase
+-desenvolver a historia
+	-items
+	-players
+	-eventos
+-desenvolver a apresentacao
+	-slides
+	-umls
+-codar mais
+	-partes finais
+	-comentarios

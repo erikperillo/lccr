@@ -14,7 +14,7 @@ class Creator
 {
 	public static void main(String[] argv) throws Exception, FileNotFoundException
 	{
-		String[] options = {"npc","attack","equip","consumable","quiz","room"};
+		String[] options = {"npc","attack","equip","consumable","quiz","room","randomev"};
 
 		if(argv.length < 1)
 		{
@@ -303,6 +303,39 @@ class Creator
 			db.save(room,"room_" +  Integer.toString(number)+ ".ser");
 			System.out.println("room saved to '" + db.getRoot() + "/room_" + Integer.toString(number) + ".ser'");
 
+		}
+		else if(argv[0].equalsIgnoreCase("randomev"))
+		{
+			String name, message;
+			Item item;
+			RandomThingOfLife random;
+			float cr,knowledge,migue;	
+			
+			if(argv.length < 2) System.out.print("name: ");
+			name = scanner.nextLine();
+
+			if(argv.length < 2) System.out.print("message: ");
+			message = scanner.nextLine();
+
+			if(argv.length < 2) System.out.print("item name (null for nothing): ");
+			ans = scanner.nextLine();
+			if(ans.equalsIgnoreCase("null"))
+				item = null;
+			else
+				item = (Item)db.load("randomev_" + ans + ".ser");	
+
+			if(argv.length < 2) System.out.print("cr increment: ");
+			cr = Float.parseFloat(scanner.nextLine());
+
+			if(argv.length < 2) System.out.print("knowledge increment: ");
+			knowledge = Float.parseFloat(scanner.nextLine());
+
+			if(argv.length < 2) System.out.print("migue increment: ");
+			migue = Float.parseFloat(scanner.nextLine());
+
+			random = new RandomThingOfLife(name,message,item,cr,knowledge,migue);
+			db.save(random,"randomev_" + random.getName());
+			System.out.println("randomev saved to '" + db.getRoot() + "/random_" + random.getName() + ".ser'");
 		}
 	}
 }

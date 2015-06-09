@@ -1,0 +1,6 @@
+[nome] : String
+[numero de questoes] : int
+se tem n questoes, faça n vezes:
+	[nome da questao i] : String
+	faça QUATRO VEZES:
+		[alternativa j da questao i] : String (a primeira alternativa e sempre correta) 
