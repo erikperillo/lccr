@@ -1,7 +1,10 @@
 package map.impl;
 
 import player.impl.*;
+
 import event.ifaces.*;
+import event.impl.*;
+
 import item.impl.*;
 
 public class Room extends Stage
@@ -38,6 +41,11 @@ public class Room extends Stage
 		this.random_event_visited = visited;
 	}
 
+	public boolean randomEventVisited()
+	{
+		return this.random_event_visited;
+	}
+
 	void setPlayerAllowed(boolean allowed)
 	{
 		this.player_allowed = allowed;
@@ -71,15 +79,26 @@ public class Room extends Stage
 	{
 		System.out.println("Room '" + this.getName() + "'");
 		System.out.println(this.getMessage());
-		System.out.println("NPCS:");
+
+		if(this.getNPCs().length > 0)
+			System.out.println("NPCS:");
 		for(NPC npc: this.getNPCs())
 			System.out.println("\t-" + npc.getName() + " (type: " + npc.getType() + ")");
-		System.out.println("Items:");
+
+		if(this.getItems().size() > 0)
+			System.out.println("Items:");
 		for(Item item: this.getItems())
 			System.out.println("\t-" + item.getName() + " (type: " + item.getType() + ")");
-		System.out.println("Events:");
+
+		if(this.getEvents().size() > 0)
+			System.out.println("Events:");
 		for(IEvent event: this.getEvents())
-			System.out.println("\t-" + event.getName());
+		{
+			if(event instanceof RandomThingOfLife && !this.random_event_visited)
+				System.out.println("\t-?????? (abra a porta pra descobrir!)");
+			else
+				System.out.println("\t-" + event.getName());
+		}
 	}
 		
 }

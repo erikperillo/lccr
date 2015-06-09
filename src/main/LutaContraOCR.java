@@ -33,7 +33,7 @@
 		public static void main(String[] argv)
 		{
 			//constantes
-			final String loop_message = "Use:\n 'mapa' para ver onde esta;\n 'player' [usar ITEMCONSUMIVEL | mover [NOME_SALA | proximo]] para acoes no player;\n 'sala' [ info [NOME_NPC | NOME_ITEM] lutar|conversar [NOME_NPC] | evento [NOME_EVENTO] | pegar [NOME_ITEM] ] para acoes na sala;\n 'info' [mapa | player | item [NOME_ITEM] | sala] para informacao sobre os itens acima"; 
+			final String loop_message = "Use:\n 'mapa' para ver onde esta;\n 'player' [usar ITEMCONSUMIVEL | mover [NOME_SALA | proximo]] para acoes no player;\n 'sala' [ info [NOME_NPC | NOME_ITEM] lutar|conversar [NOME_NPC] | evento [NOME_EVENTO] | pegar [NOME_ITEM] | portinha] para acoes na sala;\n 'info' [mapa | player | item [NOME_ITEM] | sala] para informacao sobre os itens acima"; 
 			final String[] positives = {"sim","s","yes","y","yep"}; 
 			//final String os = System.getProperty("os.name");
 
@@ -54,6 +54,9 @@
 
 			//variaveis de evento
 			IEvent event = null;
+
+			//variavel para coisas aleatorias
+			Random rand = new Random();
 
 			//INICIO DO JOGO
 			System.out.println(welcome_message);
@@ -185,13 +188,37 @@
 									System.out.println("Personagem '" + ans + "' nao encontrado!");
 							}
 						}
+						else if(ans.equalsIgnoreCase("portinha"))
+						{
+							if(!map.getPlayerRoom().randomEventVisited())
+							{
+								ArrayList<RandomThingOfLife> random_evs = new ArrayList<RandomThingOfLife>();
+								int index;
+
+								for(IEvent ev: map.getPlayerRoom().getEvents())
+									if(ev instanceof RandomThingOfLife)
+										random_evs.add((RandomThingOfLife)ev);
+								
+								if(random_evs.size() > 0)
+								{
+									index = rand.nextInt(random_evs.size());
+									random_evs.get(index).setPlayer(player);
+									random_evs.get(index).routine();
+									map.getPlayerRoom().setVisited(true);
+								}
+								else
+									System.out.println("Nao ha nada! :)))");
+							}
+							else
+								System.out.println("A portinha ja foi aberta!");
+						}
 						else if(ans.equalsIgnoreCase("evento"))
 						{
 							ans = line.nextLine().trim();
 							event = null;
 
 							for(IEvent ev: map.getPlayerRoom().getEvents())
-								if(ev.getName().equalsIgnoreCase(ans))
+								if(ev.getName().equalsIgnoreCase(ans) && !(ev instanceof RandomThingOfLife))
 									event = ev;
 									
 							if(event == null)
@@ -211,7 +238,6 @@
 									System.out.println("Seu conhecimento subiu " + gain + " pontos");
 
 									map.getPlayerRoom().getEvents().remove(event);									
-									map.getPlayerRoom().setVisited(true);
 								}
 							}
 						}

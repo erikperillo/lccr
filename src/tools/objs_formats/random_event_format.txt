@@ -1,0 +1,6 @@
+[nome] : String
+[mensagem] : String
+[nome do item] : String (use 'null' para nada)
+[incremento no cr] : float (0 a 1)
+[incremento no conhecimento] : float (0 a 1)
+[incremento no migue] : float (0 a 1)
