@@ -9,15 +9,15 @@
 public class Stage implements Serializable
 {
 	private NPC[] npcs;
-	private IEvent[] events;
-	private Item[] items;
+	private ArrayList<IEvent> events;
+	private ArrayList<Item> items;
 	private String name;
 
 	public Stage(String name, NPC[] npcs, IEvent[] events, Item[] items)
 	{
 		this.npcs = npcs;
-		this.events = events;
-		this.items = items;
+		this.events = new ArrayList<IEvent>(Arrays.asList(events));
+		this.items = new ArrayList<Item>(Arrays.asList(items));
 		this.name = name;
 	}
 
@@ -26,12 +26,12 @@ public class Stage implements Serializable
 		return this.npcs;
 	}
 
-	public IEvent[] getEvents()
+	public ArrayList<IEvent> getEvents()
 	{
 		return this.events;
 	}
 
-	public Item[] getItems()
+	public ArrayList<Item> getItems()
 	{
 		return this.items;
 	}

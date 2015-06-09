@@ -33,7 +33,7 @@ public class Room extends Stage
 		return this.message;
 	}
 
-	void setVisited(boolean visited)
+	public void setVisited(boolean visited)
 	{
 		this.random_event_visited = visited;
 	}

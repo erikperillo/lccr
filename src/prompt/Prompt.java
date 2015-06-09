@@ -71,7 +71,6 @@
 		{
 			ans = queryAnswer(message);
 			confirmation = queryAnswer("Confirma a resposta? (s/n) ",false);
-
 			if(validAnswer(confirmation,yes_vec))
 				break;
 		}	

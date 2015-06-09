@@ -33,7 +33,7 @@
 		public static void main(String[] argv)
 		{
 			//constantes
-			final String loop_message = "Use:\n 'mapa' para ver onde esta;\n 'player' [usar ITEMCONSUMIVEL | mover [NOME_SALA | proximo]] para acoes no player\n 'sala' [ info [NOME_NPC | NOME_ITEM] [lutar|conversar] [NOME_NPC] ]\n 'info' [mapa | player | (item ITEM) | sala] para informacao sobre os itens acima"; 
+			final String loop_message = "Use:\n 'mapa' para ver onde esta;\n 'player' [usar ITEMCONSUMIVEL | mover [NOME_SALA | proximo]] para acoes no player;\n 'sala' [ info [NOME_NPC | NOME_ITEM] lutar|conversar [NOME_NPC] | evento [NOME_EVENTO] | pegar [NOME_ITEM] ] para acoes na sala;\n 'info' [mapa | player | item [NOME_ITEM] | sala] para informacao sobre os itens acima"; 
 			final String[] positives = {"sim","s","yes","y","yep"}; 
 			//final String os = System.getProperty("os.name");
 
@@ -98,13 +98,13 @@
 				//checking game variables
 				if(map.end())
 				{
-					System.out.println("voce chegou ao fim, fera");
+					System.out.println("Voce chegou ao fim, fera");
 					System.exit(0);
 				}
 
 				if(player.getCR() <= 0)
 				{
-					System.out.println("voce morreu, sry");
+					System.out.println("Voce morreu, sry");
 					System.exit(0);
 				}
 
@@ -115,174 +115,214 @@
 				ans = prompt.queryAnswer("\n" + loop_message);
 				String[] operations;
 				line = new Scanner(ans);
-	/*
-				try
-				{
-					if (os.contains("Windows"))
-						Runtime.getRuntime().exec("cls");
-					else
-						Runtime.getRuntime().exec("clear");
-				}
-				catch (final Exception e)
-				{;}
-	*/
+
 				prompt.clear();
 
 				try
 				{
 					ans = line.next();
-					switch(ans)
+					//actions on sala
+					if(ans.equalsIgnoreCase("sala"))
 					{
-						case "sala":
-							ans = line.next();
-							boolean found = false;
-							switch(ans)
+						ans = line.next();
+						boolean found = false;
+
+						if(ans.equalsIgnoreCase("info"))
+						{
+							ans = line.nextLine().trim();
+							for(NPC npc: map.getPlayerRoom().getNPCs())
+								if(ans.equalsIgnoreCase(npc.getName()))
+								{
+									npc.describe();
+									found = true;	
+								}	
+							for(Item item: map.getPlayerRoom().getItems())
+								if(ans.equalsIgnoreCase(item.getName()))
+								{
+									item.describe();
+									found = true;	
+								}
+							if(!found)
+								System.out.println("Nao ha o personagem/item nomeado  '" + ans + "' na sala!");
+						}
+						else if(ans.equalsIgnoreCase("lutar"))
+						{
+							ans = line.nextLine().trim();
+
+							for(NPC npc: map.getPlayerRoom().getNPCs())
 							{
-								case "info":
-									ans = line.nextLine().trim();
-									for(NPC npc: map.getPlayerRoom().getNPCs())
-										if(ans.equalsIgnoreCase(npc.getName()))
-										{
-											npc.describe();
-											found = true;	
-										}	
-									for(Item item: map.getPlayerRoom().getItems())
-										if(ans.equalsIgnoreCase(item.getName()))
-										{
-											item.describe();
-											found = true;	
-										}
-									if(!found)
-										System.out.println("Nao ha o personagem/item nomeado  '" + ans + "' na sala!");
-									break;
-								case "lutar":
-									ans = line.nextLine().trim();
-									for(NPC npc: map.getPlayerRoom().getNPCs())
+								if(ans.equalsIgnoreCase(npc.getName()))
+								{ 
+									found = true;
+									if(npc.getType().equalsIgnoreCase("evil"))
 									{
-										if(ans.equalsIgnoreCase(npc.getName()))
-										{ 
-											found = true;
-											if(npc.getType().equalsIgnoreCase("evil"))
-											{
-												System.out.println("lutando com '" + npc.getName() + "' ...");
-												event = new Fight("Luta daora",player,npc,3);
-												event.routine();
-											}
-											else
-												System.out.println("Voce nao pode lutar com este tipo de jogador!");
-										}
-										if(!found)
-											System.out.println("Personagem '" + ans + "' nao encontrado!");
+										ans = prompt.queryAnswer("Lutar com '" + npc.getName() + "' (s/n) ?");
+										if(!ans.equalsIgnoreCase("s") && !ans.equalsIgnoreCase("sim"))
+											break;
+										System.out.println("lutando com '" + npc.getName() + "' ...");
+										event = new Fight("Luta daora",player,npc,3);
+										event.routine();
 									}
-									break;
-								case "conversar":
-									ans = line.nextLine().trim();
-									for(NPC npc: map.getPlayerRoom().getNPCs())
-									{
-										if(ans.equalsIgnoreCase(npc.getName()))
-										{ 
-											found = true;
-											System.out.println(npc.getMessage());
-										}
-										if(!found)
-											System.out.println("Personagem '" + ans + "' nao encontrado!");
-									}
-									break;
-								default:
-									System.out.println("Operador invalido para 'sala'! Tente de novo");
-									break;
+									else
+										System.out.println("Voce nao pode lutar com este tipo de jogador!");
+								}
+								if(!found)
+									System.out.println("Personagem '" + ans + "' nao encontrado!");
 							}
-							break;
+						}
+						else if(ans.equalsIgnoreCase("conversar"))
+						{
+							ans = line.nextLine().trim();
 
-						case "mapa":
-							System.out.println("Sua localizacao:");
-							map.draw();
-							break;
-
-						case "info":
-							ans = line.next();
-							switch(ans)
+							for(NPC npc: map.getPlayerRoom().getNPCs())
 							{
-								case "mapa":
-									System.out.println("Use 'mover' para mover, 'onde' para ver onde esta no mapa");
-									break;
-								case "player":
-									player.describe();
-									break;
-								case "item":
-									ans = line.nextLine().trim();
-									try
-									{
-										Item item = (Item)player.getItem(ans);
-										item.describe();
-									}
-									catch(NoItemFoundException e)
-									{
-										System.out.println("Nao ha o item '" + ans + "' no seu inventorio!");
-										break;
-									}
-									break;
-								case "sala":
-									map.getPlayerRoom().describe();
-									break;
-								default:
-									System.out.println("Opcao invalida para info! Tente de novo");
-									break;
+								if(ans.equalsIgnoreCase(npc.getName()))
+								{ 
+									found = true;
+									System.out.println(npc.getName() + " diz: '" + npc.getMessage() + "'");
+								}
+								if(!found)
+									System.out.println("Personagem '" + ans + "' nao encontrado!");
 							}
-							break;
-						
-						case "player":
-							ans = line.next();
-							switch(ans)
+						}
+						else if(ans.equalsIgnoreCase("evento"))
+						{
+							ans = line.nextLine().trim();
+							event = null;
+
+							for(IEvent ev: map.getPlayerRoom().getEvents())
+								if(ev.getName().equalsIgnoreCase(ans))
+									event = ev;
+									
+							if(event == null)
+								System.out.println("O evento '" + ans + "' nao existe na sala atual!");										
+							else
 							{
-								case "usar":
-									ans = line.nextLine().trim();
-									try
-									{
-										player.useItem(ans);
-										System.out.println("Item '" + ans + "' usado com sucesso!");
-									}		
-									catch(NoItemFoundException e)
-									{
-										System.out.println("Item '" + ans + "' nao encontrado em seu inventorio!");
-									}
-									catch(ClassCastException e)
-									{
-										System.out.println("Item '" + ans + "' nao pode ser consumido!");
-									}
-									break;
-								case "mover":
-									ans = line.next();
-									Room room = null;
-									try
-									{
-										if(ans.equalsIgnoreCase("proximo") || ans.equalsIgnoreCase("prox"))
-											room = map.getRoomByNumber(player.getLocation()+1);	
-										else
-											room = map.getRoomByName(ans);
+								if(event instanceof Quiz)
+								{
+									float gain;
 
-										if(room.playerAllowed())
-										{
-											player.move(room.getNumber());
-											System.out.println("Player '" + player.getName() + "' se moveu para a sala '" + map.getPlayerRoom().getName() + "'");
-										}
-										else
-											System.out.println("Voce ainda nao pode se mover para essa localizacao!");
-																		}
-									catch(RoomNotFoundException e)
-									{
-										System.out.println("Este local nao existe!");
-									}
-									break;
-								default:
-									System.out.println("Opcao invalida para player! Tente de novo");
-									break;
+									event.routine();
+
+									System.out.println("Voce acertou " + ((Quiz)event).getRightAnswers() + " de " + ((Quiz)event).getTotalQuestions() + " questoes");												
+									gain = ((float)((Quiz)event).getRightAnswers() / (float)((Quiz)event).getTotalQuestions());	
+									gain = gain * gain * 0.1f;
+									player.setKnowledge(player.getKnowledge() + gain);
+									System.out.println("Seu conhecimento subiu " + gain + " pontos");
+
+									map.getPlayerRoom().getEvents().remove(event);									
+									map.getPlayerRoom().setVisited(true);
+								}
 							}
-							break;
-
-						default:
-							System.out.println("operacao invalida: " + ans);
+						}
+						else if(ans.equalsIgnoreCase("pegar"))
+						{
+							ans = line.nextLine().trim();
+							Item item = null;
+							
+							for(Item it: map.getPlayerRoom().getItems())
+								if(ans.equalsIgnoreCase(it.getName()))
+									item = it;
+							
+							if(item == null)
+								System.out.println("Nao ha o item '" + ans + "' nesta sala!");	
+							else
+							{
+								player.addItem(item);
+								map.getPlayerRoom().getItems().remove(item);
+								System.out.println("Item '" + item.getName() + "' adicionado ao inventario");
+							}
+						}
+						else
+							System.out.println("Operador invalido para 'sala'! Tente de novo");
 					}
+					//displays map
+					else if(ans.equalsIgnoreCase("mapa"))
+					{
+						System.out.println("Sua localizacao:");
+						map.draw();
+					}
+					//game info
+					else if(ans.equalsIgnoreCase("info"))
+					{
+						ans = line.next();
+
+						if(ans.equalsIgnoreCase("mapa"))
+							System.out.println("Use 'mover' para mover, 'onde' para ver onde esta no mapa");
+						else if(ans.equalsIgnoreCase("player"))
+							player.describe();
+						else if(ans.equalsIgnoreCase("item"))
+						{
+							ans = line.nextLine().trim();
+
+							try
+							{
+								Item item = (Item)player.getItem(ans);
+								item.describe();
+							}
+							catch(NoItemFoundException e)
+							{
+								System.out.println("Nao ha o item '" + ans + "' no seu inventorio!");
+							}
+						}
+						else if(ans.equalsIgnoreCase("sala"))
+							map.getPlayerRoom().describe();
+						else
+							System.out.println("Opcao invalida para info! Tente de novo");
+					}
+					//player actions
+					else if(ans.equalsIgnoreCase("player"))
+					{
+						ans = line.next();
+
+						if(ans.equalsIgnoreCase("usar"))
+						{
+							ans = line.nextLine().trim();
+							try
+							{
+								player.useItem(ans);
+								System.out.println("Item '" + ans + "' usado com sucesso!");
+							}		
+							catch(NoItemFoundException e)
+							{
+								System.out.println("Item '" + ans + "' nao encontrado em seu inventorio!");
+							}
+							catch(ClassCastException e)
+							{
+								System.out.println("Item '" + ans + "' nao pode ser consumido!");
+							}
+						}
+						else if(ans.equalsIgnoreCase("mover"))
+						{
+							ans = line.next();
+							Room room = null;
+
+							try
+							{
+								if(ans.equalsIgnoreCase("proximo") || ans.equalsIgnoreCase("prox"))
+									room = map.getRoomByNumber(player.getLocation()+1);	
+								else
+									room = map.getRoomByName(ans);
+
+								if(room.playerAllowed())
+								{
+									player.move(room.getNumber());
+									System.out.println("Player '" + player.getName() + "' se moveu para a sala '" + map.getPlayerRoom().getName() + "'");
+								}
+								else
+									System.out.println("Voce ainda nao pode se mover para essa localizacao!");
+																}
+							catch(RoomNotFoundException e)
+							{
+								System.out.println("Este local nao existe!");
+							}
+						}
+						else
+							System.out.println("Opcao invalida para player! Tente de novo");
+					}
+					//invalid option
+					else
+						System.out.println("Operacao invalida: " + ans);
 			}
 			catch(NoSuchElementException e)
 			{

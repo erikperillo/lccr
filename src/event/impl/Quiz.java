@@ -10,7 +10,7 @@ public class Quiz implements IEvent, Serializable
 	private String name;
 	private String[] questions;
 	private String[][] answers;
-	private int rigth_answers = 0;
+	private int rigth_answers;
 
 	public Quiz(String name, String[] questions, String[][] answers) throws Exception
 	{
@@ -20,6 +20,7 @@ public class Quiz implements IEvent, Serializable
 		this.questions = questions;
 		this.answers = answers;
 		this.name = name;
+		this.rigth_answers = 0;
 	}
 
 	public String getName()
@@ -40,7 +41,7 @@ public class Quiz implements IEvent, Serializable
 			Collections.shuffle(shuffled_answers);
 
 			System.out.println("QUESTAO " + (i+1) + ":");
-			System.out.println(this.questions[i]);
+			System.out.println("\t" + this.questions[i]);
 			for(int j=0; j<shuffled_answers.size(); j++)
 			{
 				System.out.println("\t" + (char)('a' + j) + ") " + shuffled_answers.get(j));

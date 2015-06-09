@@ -45,11 +45,6 @@ public class Fight implements IEvent
 		return false;
 	}
 
-	public void award(int player_score, int enemy_score)
-	{
-		
-	}
-
 	public void routine()
 	{
 		Player attacker, reactor;
@@ -91,7 +86,7 @@ public class Fight implements IEvent
 				break;
 			}
 			
-			System.out.println("ROUND " + (i+1) + "\n");
+			System.out.println("ROUND " + (i+1));
 
 			for(String item_name: this.player.getItemsNames())
 			{
@@ -117,8 +112,7 @@ public class Fight implements IEvent
 			{
 				ans = prompt.queryAnswer("Use:\n 'info' [player | item [NOME_ITEM]] para informacao sobre seu CR, conhecimento, migue e listar seus ataques e items ou sobre um item\n 'usar' [NOME_ITEM] para equipar/usar algum item" + ((attacker==this.player)?"\n 'ataque' [NOME_ATAQUE] para selecionar o ataque a ser usado":"") + "\n 'prox' para prosseguir.");
 				line = new Scanner(ans);
-				//prompt.clear();
-				System.out.println();
+				prompt.clear();
 
 				try
 				{
@@ -260,6 +254,7 @@ public class Fight implements IEvent
 				attacker = this.player;
 				enemy_score += attack_val - 0.9f*defense_val;	
 			}
+			System.out.println();
 		}
 
 		//number of prizes to the winner
