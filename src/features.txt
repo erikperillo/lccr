@@ -1,0 +1,41 @@
+No geral:
+	-Tentei fazer um código limpo, geral e com uso de design patterns. Tentei tornar o jogo o mais configurável possível.
+	-TUDO (ou quase tudo :) vai pro bd. Quer dizer, tudo que é carregado. Ou seja: nada de objetos hard coded no meio do código.
+	-Por causa do anterior, criei uma ferramenta que cria items, personagens, salas e tudo mais de uma forma (um pouco) fácil e guarda no bd. Assim, o jogo pode ser bem configurável.
+
+db:
+	Dois simples métodos para se salvar e guardar objetos (em um padrão que talvez se encaixe em um DAO?). Usei um truque onde, aparentemente, o local onde o bd salva seja o mesmo (src/gamedata), independentemente da plataforma e do diretório onde o programa está sendo rodado.
+
+event:
+	Luta, Maze, Quiz... tudo é um evento.
+	Faz uso de:
+		-interfaces
+		-exceções
+		-patterns (factory method)		
+
+item:
+	Os items do jogo. Armas, consumiveis, escudos, tudo é um item que herdam da classe Item.
+	Faz uso de:
+		-interfaces
+		-exceções
+		-patterns (factory method)
+
+map:
+	O mapa do jogo. Eu pensei da seguinte forma: o mapa é uma composição de 'sub-mapas' (classe Room que herda de Stage, uma mais geral). A classe Room representa uma sala e nela está toda a informação sobre a sala: items, personagens, eventos etc. Assim, fica fácil montar salar e formar uma sequência delas no mapa. O mapa mantém controle das salas e também assina a posição do player. Ele é o ŨNICO que se importa com a posição do player e precisa saber dela.
+	Faz uso de:
+		-interfaces
+		-exceções
+		-patterns (factory, Observer)	
+
+player:
+	A classe do player. Ele guarda items, ataques, etc. Uma classe que herda é a NPC, a classe dos personagens não jogáveis.
+	Faz uso de:
+		-interfaces
+		-exceções
+		-patterns(factory, factory method, observer, builder)
+
+prompt:
+	Uma classe simples que facilita na hora de escrever e ler comandos do prompt.
+
+tools:
+	Onde está a classe Creator, que cria os objetos para o bd. Pode-se digitar as informações na hora ou lê-las de um arquivo txt.
