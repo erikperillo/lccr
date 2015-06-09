@@ -45,6 +45,11 @@ public class Fight implements IEvent
 		return false;
 	}
 
+	public void award(int player_score, int enemy_score)
+	{
+		
+	}
+
 	public void routine()
 	{
 		Player attacker, reactor;
@@ -54,8 +59,9 @@ public class Fight implements IEvent
 		Prompt prompt = new Prompt(">>> ");
 		Item item = null;
 		Random random = new Random();
-		float attack_val = 0, defense_val = 0;
+		float attack_val=0, defense_val=0, damage, player_score=0, enemy_score=0;
 		boolean atk_found;
+		int n_prizes;
 	
 		Fight.counter++;
 		System.out.println("LUTA ENTRE '" + this.player.getName() + "' (player 1) E '" + this.enemy.getName() + "' (player 2)\n");
@@ -72,12 +78,16 @@ public class Fight implements IEvent
 			if(this.player.getCR() <= 0)
 			{
 				System.out.println("Voce morreu!");
+				enemy_score = 1;
+				player_score = 0;
 				break;
 			}
+
 			if(this.enemy.getCR() <= 0)
 			{
-				System.out.println("Voce venceu!");
-				this.enemy.setActive(false);
+				System.out.println("Seu inimigo morreu!");
+				player_score = 1;
+				enemy_score = 0;
 				break;
 			}
 			
@@ -142,7 +152,7 @@ public class Fight implements IEvent
 						ans = line.nextLine().trim();
 					
 						for(String atk: player.getAttacksNames())
-							if(ans.equalsIgnoreCase(atk))
+							if(ans.equals(atk))
 							{
 								selected_attack = ans;
 								atk_found = true;
@@ -150,7 +160,7 @@ public class Fight implements IEvent
 								break;			
 							}
 						if(!atk_found)	
-							System.out.println("Ataque '" + ans + "' nao existe em sua gama de ataques!");
+							System.out.println("Ataque '" + ans + "' nao existe em sua gama de ataques! (case sensitive)");
 					}
 
 					else if(ans.equalsIgnoreCase("usar"))
@@ -220,10 +230,75 @@ public class Fight implements IEvent
 			}
 
 			System.out.println("valor de ataque: " + attack_val + " | valor de defesa: " + defense_val);
-			
-			attacker = reactor;
-			reactor = (attacker==this.player)?this.enemy:this.player;
+
+			if(attack_val > defense_val)
+			{
+				System.out.println("A forca do atacante '" + attacker.getName() + "' prevalesceu!");
+				damage = 0.1f*(1.0f - ((attack_val != 0) ? (defense_val / attack_val) : 0.0f));
+				System.out.println("O dano causado a '" + reactor.getName() + "' foi de " + damage);
+				reactor.setCR(reactor.getCR() - damage);
+			}
+			else 
+			{
+				System.out.println("O ataque de '" + attacker.getName() + "' nao foi efetivo!");
+				if(defense_val > 3.1416f*attack_val)
+				{
+					damage = 0.1f*(1.0f - ((defense_val != 0) ? (attack_val / defense_val) : 0.0f));	
+					System.out.println("A reacao de '" + reactor.getName() + "' foi tao poderosa que causou dano de " + damage + " a '" + attacker.getName() + "' !");
+				}	
+			}
+
+			if(attacker == this.player)
+			{
+				reactor = this.player;
+				attacker = this.enemy;
+				player_score += attack_val - 0.9f*defense_val;	
+			}
+			else
+			{
+				reactor = this.enemy;
+				attacker = this.player;
+				enemy_score += attack_val - 0.9f*defense_val;	
+			}
 		}
+
+		//number of prizes to the winner
+		Player winner, loser;
+		n_prizes = 1 + ((random.nextInt(100) < 10)?1:0);					
+
+		if(player_score > enemy_score)
+		{
+			System.out.println("Voce venceu!");
+			this.enemy.setActive(false);
+			winner = this.player;
+			loser = this.enemy;
+		}
+		else
+		{
+			System.out.println("Voce perdeu!");
+			winner = this.enemy;
+			loser = this.player;
+		}
+
+		for(int i=0; i<n_prizes && loser.getItemsNames().length > 0; i++)
+		{
+			int index = random.nextInt(loser.getItemsNames().length);
+			String item_name = loser.getItemsNames()[index];
+
+			try
+			{
+				winner.addItem(loser.getItem(item_name));
+				loser.removeItem(item_name);
+				System.out.println("'" + winner.getName() + "' ganhou o item '" + item_name + "' do perdedor '" + loser.getName() + "'!");
+			}
+			catch(NoItemFoundException e)
+			{
+				System.out.println("ERROR: " + e.getMessage());
+				System.exit(1);
+			}
+		}
+
+		System.out.println("player score: " + player_score + " | enemy score: " + enemy_score);
 		return;
 	}
 }

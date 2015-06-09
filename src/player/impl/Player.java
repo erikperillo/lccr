@@ -10,7 +10,7 @@ import item.ifaces.*;
 import db.impl.DataBase;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject, Serializable
 {
@@ -170,6 +170,8 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		DataBase db;
 		Integer[] weights = null;
 		int attack_additional = 0;
+		float result;
+		Random random = new Random();
 
 		for(Item item: this.inventory)
 			if(item.getType().equalsIgnoreCase("arma") || item.getType().equalsIgnoreCase("weapon"))
@@ -186,7 +188,11 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 				throw e;
 			}
 
-			return this.knowledge*(attack_additional + weights[0]) + this.migue*weights[1];
+			result = this.knowledge*(attack_additional + weights[0]) + this.migue*weights[1];
+			result += (float)(random.nextDouble()*0.1*result*((random.nextBoolean()?-1:1)));
+			result -= ((random.nextInt(100) < 20)?0.2f*result:0);
+			result -= ((random.nextInt(100) < 5)?0.5f*result:0);
+			return result;
 		}	
 		else
 			throw new AttackNotFoundException("No such attack '" + attack_name + "' in player's list of attacks");
@@ -196,6 +202,8 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 	{
 		Integer[] weights = null;		
 		int defense_additional = 0;
+		float result;
+		Random random = new Random();
 
 		for(Item item: this.inventory)
 			if(item instanceof Equip)
@@ -209,8 +217,12 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		{
 			throw e;
 		}
-		
-		return this.migue*(defense_additional + weights[2]) + this.knowledge*weights[3];
+	
+		result = this.migue*(defense_additional + weights[2]) + this.knowledge*weights[3];
+		result += (float)(random.nextDouble()*0.1*result*((random.nextBoolean()?-1:1)));
+		result -= ((random.nextInt(100) < 20)?0.2f*result:0);
+		result -= ((random.nextInt(100) < 5)?0.5f*result:0);
+		return result;	
 	}
 
 
@@ -235,6 +247,18 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 			}
 
 		inventory.add((Item)item);	
+	}
+
+	public void removeItem(String item_name) throws NoItemFoundException
+	{
+		try
+		{
+			inventory.remove(this.getItem(item_name));
+		}
+		catch(NoItemFoundException e)
+		{
+			throw e;
+		}
 	}
 	
 	//uses potion 

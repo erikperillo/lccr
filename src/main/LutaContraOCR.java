@@ -139,7 +139,7 @@
 							switch(ans)
 							{
 								case "info":
-									ans = line.next();
+									ans = line.nextLine().trim();
 									for(NPC npc: map.getPlayerRoom().getNPCs())
 										if(ans.equalsIgnoreCase(npc.getName()))
 										{
@@ -165,7 +165,7 @@
 											if(npc.getType().equalsIgnoreCase("evil"))
 											{
 												System.out.println("lutando com '" + npc.getName() + "' ...");
-												event = new Fight("Luta daora",player,npc,10);
+												event = new Fight("Luta daora",player,npc,3);
 												event.routine();
 											}
 											else
