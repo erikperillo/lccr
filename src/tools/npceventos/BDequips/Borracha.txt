@@ -1,0 +1,5 @@
+Borracha
+Errou? Nao se preocupe pois ela apaga os seus erros.
+6
+15
+false

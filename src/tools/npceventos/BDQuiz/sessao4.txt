@@ -1,0 +1,27 @@
+sessao4
+5
+Qual destes predios esta adjacente em relacao ao Instituto de Computacao?
+Instituto de Economia
+Instituto de Matematica, Estatistica e Computacao Cientifica
+Faculdade de Educacao 
+Faculdade de Engenharia Eletrica e da Computacao
+Para qual destes cardapios a fila do bandejao e a maior?
+Strogonoff de Frango
+Cozido Misto
+Frango Fimose
+Role Bovino
+Qual destes cursos nao possui Empresa Junior em funcionamento?
+Fisica
+Matematica
+Educacao Fisica
+Artes Visuais
+Qual destes cursos e o mais novo?
+Farmacia
+Estudos Literarios
+Comunicacao Social - Midialogia
+Fonoaudiologia
+Qual destes institutos nao possui biblioteca?
+Faculdade de Engenharia Eletrica e da Computacao
+Faculdade de Educacao
+Instituto de Matematica, Estatistica e Computacao Cientifica
+Instituto de Artes

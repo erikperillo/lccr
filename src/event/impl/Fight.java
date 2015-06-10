@@ -207,7 +207,8 @@ public class Fight implements IEvent
 			catch(AttackNotFoundException | IOException e)
 			{
 				System.out.println("ERROR: " + e.getMessage());
-				System.exit(1);
+				i--;
+				continue;
 			}
 			
 			System.out.println("'" + attacker.getName() + "' usa o ataque '" + selected_attack + "' !");
@@ -220,7 +221,8 @@ public class Fight implements IEvent
 			catch(AttackNotFoundException | IOException e)
 			{
 				System.out.println("ERROR: " + e.getMessage());
-				System.exit(1);
+				i--;
+				continue;
 			}
 
 			System.out.println("valor de ataque: " + attack_val + " | valor de defesa: " + defense_val);

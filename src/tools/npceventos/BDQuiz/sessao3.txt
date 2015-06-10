@@ -1,0 +1,27 @@
+sessao3
+5
+Qual dessas IDE's nao compila codigos em Java?
+Code Blocks
+BlueJ
+NetBeans
+Kawa
+Quanto e a capacidade de armazenamento do disquete mais comum (3 1/2" HD) em MB?
+1.44
+2.4
+5.76
+0.72
+Qual desses departamentos nao pertence a FEEC-UNICAMP?
+DEEAE Departamento de Engenharia de Energia e Automação Elétrica
+DECOM Departamento de Comunicações
+DSEE Departamento de Sistemas de Energia Elétrica
+DEB Departamento de Engenharia Biomédica
+Quem foi o primeiro diretor do Instituto de Computacao da UNICAMP?
+Tomasz Kowaltowski
+Ricardo da Silva Torres
+Jorge Stolfi
+Cláudio Leonardo Lucchesi
+De qual marca e o processador do Playstation 4?
+AMD
+Intel
+IBM
+VIA

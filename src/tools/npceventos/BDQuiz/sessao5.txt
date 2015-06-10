@@ -1,0 +1,27 @@
+sessao5
+5
+Qual destes intelectuais NAO tem o nome associado a uma rua do campus?
+Cesar Lattes
+Pitagoras
+Mendeleyev
+Albert Einstein
+Qual destes cursos de graduacao nao e oferecido pela Unicamp?
+Direito
+Administracao Publica
+Engenharia Fisica
+Sistemas de Informacao
+Quantas salas ha nos predios do Ciclo Basico (I e II)?
+44
+18
+36
+60
+Quantos cursos de graduacao sao oferecidos pela Unicamp?
+66
+42
+25
+89
+Em que ano a UNICAMP foi fundada?
+1966
+1972
+1964
+1985

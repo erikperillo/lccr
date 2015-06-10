@@ -8,6 +8,8 @@ import map.excepts.*;
 
 public class Map implements IObserver
 {
+	public final static String DEF_ROOMS_NAMES_ON_BD_FILENAME =
+								"map_def_rooms_names";
 	public final static int N_ROOMS_FLOOR = 3;
 	private Room[] rooms;
 	private int player_location = 0;

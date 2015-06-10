@@ -1,0 +1,7 @@
+Cafe 
+Depois de um delicioso bandejao, nada melhor do que aquele cafe pra te ajudar a combater o sono . Aumenta o seu CR e seu conhecimento, mas diminui seu Migue. 
+2 
+0.2 
+0.15
+-0.1
+2 

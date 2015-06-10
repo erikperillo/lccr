@@ -15,14 +15,14 @@ public class RoomFactory
 	{
 		NPC[] npcs = new NPC[players_names.length];
 		Item[] items = new Item[items_names.length];
-		IEvent[] events = new Quiz[events_names.length];
+		IEvent[] events = new IEvent[events_names.length];
 		IItemFactory item_fact;
 		DataBase db = DataBase.getInstance();
 		
 		try
 		{
 			for(int i=0; i<players_names.length; i++)
-				npcs[i] = (NPC)db.load("npc_" + players_names[i] + ".ser");
+				npcs[i] = (NPC)db.load(NPC.class,players_names[i]);
 		}
 		catch(IOException | ClassNotFoundException e)
 		{
@@ -52,16 +52,23 @@ public class RoomFactory
 			}
 		}
 
-		try
-		{
-			for(int i=0; i<events_names.length; i++)
-				events[i] = (Quiz)db.load("quiz_" + events_names[i] + ".ser");
-		}
-		catch(IOException | ClassNotFoundException e)
-		{
-			System.out.println("could not load room properly.\nmessages: " + e.getMessage());
-			System.exit(1);
-		}
+		for(int i=0; i<events_names.length; i++)
+			try
+			{
+				events[i] = (RandomThingOfLife)db.load(RandomThingOfLife.class,events_names[i]);
+			}
+			catch(IOException | ClassNotFoundException e)
+			{
+				try
+				{
+					events[i] = (Quiz)db.load(Quiz.class,events_names[i]);
+				}
+				catch(IOException | ClassNotFoundException e2)
+				{
+					System.out.println("could not load room properly.\nmessages: " + e2.getMessage());
+					System.exit(1);
+				}
+			}
 
 		return new Room(number,npcs,events,items,message);
 	}

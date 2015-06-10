@@ -1,0 +1,5 @@
+Limite de expressao impossivel de fatorar
+4
+2
+4
+3

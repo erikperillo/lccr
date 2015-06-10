@@ -15,15 +15,14 @@ public class ConsumableFactory implements IItemFactory
 	public IItem getItem(String item_name) throws IOException, NoItemFoundException
 	{
 		DataBase db = DataBase.getInstance();
-		String filename = "consumable_" + item_name + ".ser";
 
 		try
 		{
-			return (Consumable) db.load(filename);
+			return (Consumable) db.load(Consumable.class,item_name);
 		}
 		catch(FileNotFoundException | ClassNotFoundException e)
 		{
-			throw new NoItemFoundException("Consumable object not found in '" + db.getRoot() + "/" + filename);
+			throw new NoItemFoundException("Consumable object not found in '" + db.getRoot());
 		} 	
 		catch(IOException e)
 		{

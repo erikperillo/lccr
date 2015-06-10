@@ -1,0 +1,5 @@
+Boneco Do Tiranossauro
+A primeira vista, parece um simples boneco de algum dinossauro, mas ele pode te ajudar a entender como a orientacao a objetos funciona. (Esse item eh exclusivo do Santanche, so ele pode ter)
+5
+100
+y

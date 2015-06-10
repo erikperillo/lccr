@@ -1,0 +1,27 @@
+sessao2
+5
+Qual a melhor universidade em ciencias da computação do mundo (Segundo o ranking QS 2015)?
+MIT
+Stanford
+Harvard
+Princeton
+Qual desses filmes abaixo nao tem relaçao direta com computadores?
+O Codigo
+A Rede Social
+Jogos de Guerra
+Ela
+Onde surgiu o primeiro curso de graduação em Ciência da Computação no Brasil?
+UNICAMP
+UFRJ
+USP
+UFMG
+Qual desses softwares sao considerados "Open Source"?
+Eclipse, VLC, Blender
+Firefox, MySQL, Daemon Tools
+LibreOffice, WordPress, Winrar
+Gimp, Audacity, aTube
+Quais dessas linguagens de programacao sao as tres mais populares segundo Ranking da RedMonk/2015?
+JavaScript, Java, PHP
+PHP, Python, Ruby
+C++, Java, C#
+C, PHP, Python

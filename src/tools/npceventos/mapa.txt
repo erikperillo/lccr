@@ -1,0 +1,44 @@
+﻿A1P1
+quiz1
+eventoaleatorio-caradogamux
+item-flyer
+item-balalaika
+
+A1P2
+npc-PED102(item - )
+eventoaleatorio-proffisica
+item - maca
+item - banana
+
+A1EXAME
+npc- profHZ(item - )
+eventoaleatorio - tia do bandeco
+
+A2P1
+jogodofaustao1
+eventoaleatorio-funcionario da dac
+item - acai
+
+A2P2
+npc-PED202(item - livro de calculo)
+eventoaleatorio - cr1
+item - energetico
+
+A2EXAME
+npc - prof de calculo(item - )
+eventoaleatorio - lagarto da feec
+
+A3P1
+quiz2
+jogo do faustao 2
+evento aleatorio - coordenador graduacao
+item - balalaika
+
+A3P2
+npc - PED302 (item - )
+evento aleatorio - diretor atletica
+item - cafe
+
+A3EXAME
+npc - Santanche (item - diploma)
+evento aleatorio - rhdofb

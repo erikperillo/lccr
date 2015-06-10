@@ -14,15 +14,14 @@ public class QuizFactory implements IEventFactory
 	public IEvent getEvent(String event_name) throws IOException, NoEventFoundException
 	{
 		DataBase db = DataBase.getInstance();
-		String filename = "quiz_" + event_name + ".ser";
 
 		try
 		{
-			return (Quiz)db.load(filename);
+			return (Quiz)db.load(Quiz.class,event_name);
 		}
 		catch(FileNotFoundException | ClassNotFoundException e)
 		{
-			throw new NoEventFoundException("Quiz object not found in '" + db.getRoot() + "/" + filename);
+			throw new NoEventFoundException("Quiz object not found in '" + db.getRoot());
 		} 	
 		catch(IOException e)
 		{

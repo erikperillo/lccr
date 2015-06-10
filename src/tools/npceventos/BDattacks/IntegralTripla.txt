@@ -1,0 +1,5 @@
+Integral tripla
+5
+3
+4
+2

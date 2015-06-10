@@ -1,0 +1,5 @@
+Livro de Calculo
+Junta da sua prima da Fisica, uma companheira de varias horas de estudo.
+3
+60
+false

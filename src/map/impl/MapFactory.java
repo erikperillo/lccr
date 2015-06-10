@@ -15,7 +15,7 @@ public class MapFactory
 		{
 			for(int i=0; i<rooms.length; i++)
 			{
-				rooms[i] = (Room)db.load("room_" + rooms_names[i] + ".ser");
+				rooms[i] = (Room)db.load(Room.class,rooms_names[i]);
 
 				name = "A" + Integer.toString((i / Map.N_ROOMS_FLOOR)+1) + (((i+1)%Map.N_ROOMS_FLOOR == 0)?"EXAME":("P" + Integer.toString((i+1)%Map.N_ROOMS_FLOOR)));
 				rooms[i].setNumber(i);

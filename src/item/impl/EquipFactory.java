@@ -15,15 +15,14 @@ public class EquipFactory implements IItemFactory
 	public IItem getItem(String item_name) throws IOException, NoItemFoundException
 	{
 		DataBase db = DataBase.getInstance();
-		String filename = "equip_" + item_name + ".ser";
 
 		try
 		{
-			return (Equip)db.load(filename);
+			return (Equip)db.load(Equip.class,item_name);
 		}
 		catch(FileNotFoundException | ClassNotFoundException e)
 		{
-			throw new NoItemFoundException("Equip object not found in '" + db.getRoot() + "/" + filename + "'");
+			throw new NoItemFoundException("Equip object not found in '" + db.getRoot() + "'");
 		}
 		catch(IOException e)
 		{

@@ -1,0 +1,27 @@
+sessao1
+5
+Qual pais com maior velocidade media de internet?
+Coreia do Sul
+Suiça
+Taiwan
+EUA
+Quais as tres marcas mais valiosas no mundo em 2015 (Segundo a Forbes)?
+Apple, Microsoft, Google
+Facebook, Samsung, IBM
+Microsoft, Apple, Samsung
+Apple, Facebook, Microsoft
+Qual a rede com maior numero de usuarios em 2015?
+Facebook
+Twitter
+LinkedIn
+Instagram
+Qual o game mais vendido de todos os tempos?
+Tetris (1984)
+Minecraft (2009)
+GTA V (2013)
+GTA San Andreas (2004)
+Quem e considerado o "pai da ciencia da computacao"?
+Alan Turing
+Steve Jobs
+John von Neumann
+Joseph Marie Jacquard

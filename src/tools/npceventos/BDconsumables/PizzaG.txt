@@ -1,0 +1,7 @@
+Pizza Gigante 
+A melhor pedida quando estiver com os amigos ou maratonas de programacao e bater aquela fome monstra. Aumenta o seu CR e seu Migue, mas diminui seu Conhecimento 
+1 
+0.3
+-0.1
+0.1 
+3 

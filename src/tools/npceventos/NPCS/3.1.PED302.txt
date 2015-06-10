@@ -1,0 +1,16 @@
+PED de 302
+evil
+Alguma duvida? Comece o lab!
+1
+0.8
+0.3
+2
+Notebook
+Guia de Programacao
+3
+Cafe
+Pizza Gigante
+Salgado
+2
+lab impossivel em sala
+lab gigante impossivel de um mes

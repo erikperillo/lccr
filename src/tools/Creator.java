@@ -14,7 +14,7 @@ class Creator
 {
 	public static void main(String[] argv) throws Exception, FileNotFoundException
 	{
-		String[] options = {"npc","attack","equip","consumable","quiz","room","randomev"};
+		String[] options = {"player","map","roomlist","npc","attack","equip","consumable","quiz","room","randomev"};
 
 		if(argv.length < 1)
 		{
@@ -46,6 +46,83 @@ class Creator
 		else
 			scanner = new Scanner(System.in);
 
+		if(argv[0].equalsIgnoreCase("map"))
+		{
+			String[] rooms_names;
+			int n;
+			
+			if(argv.length < 2) System.out.print("how many rooms?: ");
+				n = Integer.parseInt(scanner.nextLine());
+
+			rooms_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("room " + (i+1) + " number: ");
+				rooms_names[i] = scanner.nextLine().trim();
+			}
+			try
+			{
+				db.save(rooms_names,Map.DEF_ROOMS_NAMES_ON_BD_FILENAME);
+			}
+			catch(IOException e)
+			{
+				System.out.println("ERROR: " + e.getMessage());
+				System.exit(1);
+			} 
+			System.out.println("information about map saved!");
+		}
+		if(argv[0].equalsIgnoreCase("player"))
+		{
+			String[] attacks_names, consumables_names, equips_names;
+			int n;
+
+			if(argv.length < 2) System.out.print("how many attacks?: ");
+				n = Integer.parseInt(scanner.nextLine());
+
+			attacks_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("attack " + (i+1) + ": ");
+				attacks_names[i] = scanner.nextLine().trim();
+			}
+
+			if(argv.length < 2) System.out.print("how many consumables?: ");
+				n = Integer.parseInt(scanner.nextLine());
+
+			consumables_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("consumable " + (i+1) + ": ");
+				consumables_names[i] = scanner.nextLine().trim();
+			}
+
+			if(argv.length < 2) System.out.print("how many equips?: ");
+				n = Integer.parseInt(scanner.nextLine());
+
+			equips_names = new String[n];
+
+			for(int i=0; i<n; i++)
+			{
+				if(argv.length < 2) System.out.print("consumable " + (i+1) + ": ");
+				equips_names[i] = scanner.nextLine().trim();
+			}
+
+			try
+			{
+				db.save(attacks_names,Player.DEF_ATTACKS_NAMES_ON_BD_FILENAME);
+				db.save(consumables_names,Player.DEF_CONSUMABLES_NAMES_ON_BD_FILENAME);
+				db.save(equips_names,Player.DEF_EQUIPS_NAMES_ON_BD_FILENAME);
+			}
+			catch(IOException e)
+			{
+				System.out.println("ERROR: " + e.getMessage());
+				System.exit(1);
+			} 
+			System.out.println("information about player saved!");
+		}
 		if(argv[0].equalsIgnoreCase("consumable") || argv[0].equalsIgnoreCase("equip"))
 		{
 			String name,type,description;
@@ -104,7 +181,7 @@ class Creator
 
 			try
 			{
-				db.save(item, argv[0] + "_" + item.getName() + ".ser");
+				db.save(item,item.getName());
 			}
 			catch(IOException e)
 			{
@@ -112,7 +189,7 @@ class Creator
 				System.exit(1);
 			}
 			
-			System.out.println("object succesfully saved to '" + db.getRoot() + "/" + argv[0] + "_" + item.getName() + ".ser'");
+			System.out.println("object succesfully saved to '" + db.getRoot() + "'");
 		}
 		else if(argv[0].equalsIgnoreCase("quiz"))
 		{
@@ -144,9 +221,9 @@ class Creator
 			}
 
 			quiz = new Quiz(name,questions,answers);
-			db.save(quiz,"quiz_" + name + ".ser");
+			db.save(quiz,name);
 			
-			System.out.println("Quiz succesfully saved to '" + db.getRoot() + "/quiz_" + name + ".ser'");
+			System.out.println("Quiz succesfully saved to '" + db.getRoot() + "'");
 		}
 		else if(argv[0].equalsIgnoreCase("attack"))
 		{
@@ -170,7 +247,7 @@ class Creator
 
 			try
 			{
-				db.save(consts, argv[0] + "_" + name + ".ser");
+				db.save(consts,name);
 			}
 			catch(IOException e)
 			{
@@ -178,7 +255,7 @@ class Creator
 				System.exit(1);
 			}
 
-			System.out.println("object succesfully saved to '" + db.getRoot() + "/" + argv[0] + "_" + name + ".ser'");
+			System.out.println("object succesfully saved to '" + db.getRoot() + "'");
 		}
 		else if(argv[0].equalsIgnoreCase("npc"))
 		{
@@ -246,8 +323,8 @@ class Creator
 			director.construct(builder);
 			npc = (NPC)builder.getPlayer();
 
-			db.save(npc,"npc_" + npc.getName() + ".ser");
-			System.out.println("npc saved to '" + db.getRoot() + "/npc_" + npc.getName() + ".ser'");
+			db.save(npc,npc.getName());
+			System.out.println("npc saved to '" + db.getRoot() + "'");
 		}
 		else if(argv[0].equalsIgnoreCase("room"))
 		{	
@@ -300,8 +377,8 @@ class Creator
 
 			room = RoomFactory.getRoom(number,players_names,events_names,items_names,message);
 
-			db.save(room,"room_" +  Integer.toString(number)+ ".ser");
-			System.out.println("room saved to '" + db.getRoot() + "/room_" + Integer.toString(number) + ".ser'");
+			db.save(room,Integer.toString(number));
+			System.out.println("room saved to '" + db.getRoot() + "'");
 
 		}
 		else if(argv[0].equalsIgnoreCase("randomev"))
@@ -322,7 +399,7 @@ class Creator
 			if(ans.equalsIgnoreCase("null"))
 				item = null;
 			else
-				item = (Item)db.load("randomev_" + ans + ".ser");	
+				item = (Item)db.load(Item.class,ans);	
 
 			if(argv.length < 2) System.out.print("cr increment: ");
 			cr = Float.parseFloat(scanner.nextLine());
@@ -334,8 +411,8 @@ class Creator
 			migue = Float.parseFloat(scanner.nextLine());
 
 			random = new RandomThingOfLife(name,message,item,cr,knowledge,migue);
-			db.save(random,"randomev_" + random.getName());
-			System.out.println("randomev saved to '" + db.getRoot() + "/random_" + random.getName() + ".ser'");
+			db.save(random,random.getName());
+			System.out.println("randomev saved to '" + db.getRoot() + "'");
 		}
 	}
 }

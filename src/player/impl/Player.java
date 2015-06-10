@@ -15,6 +15,12 @@ import java.util.*;
 public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject, Serializable
 {
 	//attributes
+	public final static String DEF_ATTACKS_NAMES_ON_BD_FILENAME =
+								"player_default_attacks_names";
+	public final static String DEF_CONSUMABLES_NAMES_ON_BD_FILENAME =
+								"player_default_consumables_names";
+	public final static String DEF_EQUIPS_NAMES_ON_BD_FILENAME =
+								"player_default_equips_names";
 	private float CR;
 	private float knowledge;
 	private float migue;
@@ -63,17 +69,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 	{
 		return this.name;
 	}
-/*	
-	public ArrayList<Item> getInventory()
-	{
-		return this.inventory;
-	}
 
-	public ArrayList<String> getAttacks()
-	{
-		return this.attacks;
-	}
-*/
 	//setters
 	public void setCR(float CR)
 	{
@@ -151,7 +147,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 
 		try
 		{
-			weights = (Integer[])db.load(attack_name);
+			weights = (Integer[])db.load(Integer[].class,attack_name);
 			return weights;
 		}
 		catch(IOException e)
@@ -181,7 +177,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		{
 			try
 			{
-				weights = getAttackFromDB("attack_" + attack_name + ".ser");
+				weights = getAttackFromDB(attack_name);
 			}
 			catch(IOException | AttackNotFoundException e)
 			{
@@ -211,7 +207,7 @@ public class Player implements IPlayer, IHandler, IWanderer, IFighter, ISubject,
 		
 		try
 		{
-			weights = getAttackFromDB("attack_" + attack_name + ".ser");
+			weights = getAttackFromDB(attack_name);
 		}
 		catch(AttackNotFoundException | IOException e)
 		{

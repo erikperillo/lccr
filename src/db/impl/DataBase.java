@@ -32,7 +32,7 @@ public class DataBase implements IDataBase
 
 		try
 		{
-			fos = new FileOutputStream(DataBase.root + "/" + filename);
+			fos = new FileOutputStream(DataBase.root + "/" + obj.getClass().getCanonicalName().replace(".","_") + "_" + filename.trim().toLowerCase().replace(" ","_") + ".ser");
 			oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(obj);
@@ -45,7 +45,7 @@ public class DataBase implements IDataBase
 		}
 	}
 
-	public Object load(String filename) throws IOException, ClassNotFoundException
+	public Object load(Class cls, String filename) throws IOException, ClassNotFoundException
 	{
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -53,7 +53,7 @@ public class DataBase implements IDataBase
 		
 		try
 		{
-			fis = new FileInputStream(DataBase.root + "/" + filename);
+			fis = new FileInputStream(DataBase.root + "/" + cls.getCanonicalName().replace(".","_") + "_" + filename.trim().toLowerCase().replace(" ","_") + ".ser");
 			ois = new ObjectInputStream(fis);
 
 			obj = ois.readObject();

@@ -1,0 +1,7 @@
+Laranja do Bandeco 
+Uma das frutas que o bandeco lhe oferece. Aumenta o seu CR. 
+1 
+0.2 
+0.0 
+0.0 
+1 

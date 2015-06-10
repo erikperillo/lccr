@@ -1,0 +1,7 @@
+Maca do Bandeco
+Uma das frutas que o bandeco lhe oferece. Aumenta o seu CR.
+2 
+0.1
+0.0
+0.0
+1 

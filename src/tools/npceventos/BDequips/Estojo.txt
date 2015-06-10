@@ -1,0 +1,5 @@
+Estojo
+Pequeno guardador de utensilios para realizar as atividades mais simples.
+2 
+20
+false
